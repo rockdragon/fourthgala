@@ -2,7 +2,6 @@
 saint learning curve
 
 ## two ways to compilation
-***
 1. sbt
 ```
 sbt compile
