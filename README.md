@@ -7,13 +7,11 @@ saint learning curve
 sbt compile
 sbt run
 ```
-
 2. sbt with arguments
 ```
 sbt compile
 sbt "run-main package.name args"
-```
-
+``
 3. scalac
 ```
 scalac a.scala b.scala
