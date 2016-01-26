@@ -1,7 +1,7 @@
 # fourthgala
 saint learning curve
 
-## two ways to compilation
+## three ways to compiling
 1. sbt without arguments
 ```
 sbt compile
