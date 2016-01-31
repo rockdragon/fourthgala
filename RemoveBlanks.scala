@@ -14,6 +14,5 @@ object RemoveBlanks {
         (compress, path) = if (path2 startsWith "-") (true, path2.substring(1))
                             else (false, path2)
         line <- apply(path, compress)
-    } println(line
-    )
+    } println(line)
 }
