@@ -1,3 +1,5 @@
+package me.moye.holy
+
 object Address {
   def zipToCity(zip: String) = "AnyTown"
 

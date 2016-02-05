@@ -1,3 +1,5 @@
+package me.moye.solely
+
 import scalaz._, std.AllInstances._
 
 object Hello {
