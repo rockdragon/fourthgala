@@ -1,11 +1,15 @@
 *.class
 *.log
 *.jar
+*.bat
 
 # sbt specific
 .cache
 .history
 .lib/
+.idea/
+.sbtserver/
+
 dist/*
 target/
 lib_managed/
@@ -23,4 +27,3 @@ project/plugins/project/
 .scala_dependencies
 .worksheet
 
-.idea/
