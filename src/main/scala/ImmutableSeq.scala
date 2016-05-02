@@ -1,3 +1,5 @@
+package me.moye.practise.immutableSeq
+
 import scala.collection.immutable._
 
 object main {

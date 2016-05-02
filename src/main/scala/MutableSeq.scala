@@ -1,4 +1,4 @@
-package me.moye.practise
+package me.moye.practise.mutableSeq
 
 import scala.collection.mutable._
 
