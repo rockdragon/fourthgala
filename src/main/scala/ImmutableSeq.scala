@@ -4,13 +4,9 @@ object main {
 
   def indexes(s: String): Map[Char, Set[Int]] = {
     val m = Map[Char, Set[Int]]()
-    val pair = s.foldLeft((m, 0))((p, c) => {
-      if (!p._1.isDefinedAt(c)) {
-        (p._1 + (c -> Set[Int](p._2)), p._2 + 1)
-      } else {
-        (p._1 + (c -> (p._1(c) + p._2)), p._2)
-      }
-    })
+    val pair = s.foldLeft((m, 0))((p, c) =>
+      (p._1 + (c -> (p._1.getOrElse(c, Set[Int](p._2)) + p._2)), p._2 +1)
+    )
     pair._1
   }
 
