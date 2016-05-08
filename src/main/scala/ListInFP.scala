@@ -1,4 +1,4 @@
-package me.moye.practise.structureinfp
+package me.moye.practise.listInFP
 
 object main {
 
