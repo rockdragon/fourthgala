@@ -5,7 +5,9 @@ object main {
   def executor(target: Closable, handler: Closable => Unit): Unit = {
     try{
       handler(target)
-    } finally {
+    } catch {
+      case e: Exception =>
+    } finally{
       target.close()
     }
   }
