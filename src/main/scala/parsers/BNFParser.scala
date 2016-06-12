@@ -33,7 +33,8 @@ class ExprParser extends RegexParsers {
 object main {
   def main(args: Array[String]): Unit = {
     val parser = new ExprParser()
-    parser.apply("1+2*3")
+    val expr = "(1+2)*3"
+    println(expr +  "=" + parser.apply(expr))
   }
 }
 
