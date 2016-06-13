@@ -8,7 +8,9 @@ class ExprParser extends RegexParsers {
       _.toDouble
     }
 
-  def factor: Parser[Double] = number | "(" ~> expr <~ ")"
+  def factor: Parser[Double] = number | "(" ~ expr ~ ")" ^^ {
+    case _ ~ e ~ _ => e
+  }
 
   def term: Parser[Double] = factor ~ rep("*" ~ factor | "/" ~ factor) ^^ {
     case number ~ list => (number /: list) {
