@@ -13,10 +13,12 @@ class ExprParser extends RegexParsers {
   }
 
   def term: Parser[Double] = factor ~ rep("*" ~ log(factor)("Multiply term")
-    | "/" ~ log(factor)("Divide term")) ^^ {
+    | "/" ~ log(factor)("Divide term")
+    | "%" ~ log(factor)("Mod term")) ^^ {
     case number ~ list => (number /: list) {
       case (x, "*" ~ y) => x * y
       case (x, "/" ~ y) => x / y
+      case (x, "%" ~ y) => x % y
     }
   }
 
@@ -37,7 +39,7 @@ class ExprParser extends RegexParsers {
 object main {
   def main(args: Array[String]): Unit = {
     val parser = new ExprParser()
-    val expr = "(1+2)*3"
+    val expr = "(1+2)*3%4"
     println(expr + "=" + parser.apply(expr))
   }
 }
