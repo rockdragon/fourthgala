@@ -12,14 +12,16 @@ class ExprParser extends RegexParsers {
     case _ ~ e ~ _ => e
   }
 
-  def term: Parser[Double] = factor ~ rep("*" ~ factor | "/" ~ factor) ^^ {
+  def term: Parser[Double] = factor ~ rep("*" ~ log(factor)("Multiply term")
+    | "/" ~ log(factor)("Divide term")) ^^ {
     case number ~ list => (number /: list) {
       case (x, "*" ~ y) => x * y
       case (x, "/" ~ y) => x / y
     }
   }
 
-  def expr: Parser[Double] = term ~ rep("+" ~ log(term)("Plus term") | "-" ~ log(term)("Minus term")) ^^ {
+  def expr: Parser[Double] = term ~ rep("+" ~ log(term)("Plus term")
+    | "-" ~ log(term)("Minus term")) ^^ {
     case number ~ list => (number /: list) {
       case (x, "+" ~ y) => x + y
       case (x, "-" ~ y) => x - y
@@ -28,7 +30,7 @@ class ExprParser extends RegexParsers {
 
   def apply(input: String): Double = parseAll(expr, input) match {
     case Success(result, _) => result
-    case failure : NoSuccess => scala.sys.error(failure.msg)
+    case failure: NoSuccess => scala.sys.error(failure.msg)
   }
 }
 
@@ -36,7 +38,7 @@ object main {
   def main(args: Array[String]): Unit = {
     val parser = new ExprParser()
     val expr = "(1+2)*3"
-    println(expr +  "=" + parser.apply(expr))
+    println(expr + "=" + parser.apply(expr))
   }
 }
 
