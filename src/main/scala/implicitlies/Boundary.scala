@@ -20,6 +20,6 @@ object main {
     val p =new  Pair(new Crap(10), new Crap(20))
     println("smaller: ", p.smaller)
 
-    println("phantom is: ", implicitly[Ordering[Int]])
+    println("phantom is: ", implicitly[Ordering[Crap]])
   }
 }
