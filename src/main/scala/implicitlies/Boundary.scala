@@ -1,13 +1,23 @@
 package implicitlies
 
 object main {
+  class Crap(val value: Int) {
+    override def toString = "[Crap: " + value + " ]"
+  }
+
   class Pair[T: Ordering](val first: T, val second: T) {
-    def smaller(implicit order: Ordering[T]) =
-      if(order.compare(first, second) < 0) first else second
+    def smaller = {
+      import Ordered._
+      if (first < second) first else second
+    }
+  }
+
+  implicit object CrapOrdering extends Ordering[Crap] {
+    def compare(a: Crap, b: Crap) = a.value - b.value
   }
 
   def main(args: Array[String]): Unit = {
-    val p =new  Pair(10, 20)
+    val p =new  Pair(new Crap(10), new Crap(20))
     println("smaller: ", p.smaller)
 
     println("phantom is: ", implicitly[Ordering[Int]])
