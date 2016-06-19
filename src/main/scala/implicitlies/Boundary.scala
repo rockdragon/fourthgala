@@ -1,6 +1,7 @@
 package implicitlies
 
-object main {
+object main extends App {
+
   class Crap(val value: Int) {
     override def toString = "[Crap: " + value + " ]"
   }
@@ -16,10 +17,8 @@ object main {
     def compare(a: Crap, b: Crap) = a.value - b.value
   }
 
-  def main(args: Array[String]): Unit = {
-    val p =new  Pair(new Crap(10), new Crap(20))
-    println("smaller: ", p.smaller)
+  val p = new Pair(new Crap(10), new Crap(20))
+  println("smaller: ", p.smaller)
 
-    println("phantom is: ", implicitly[Ordering[Crap]])
-  }
+  println("phantom is: ", implicitly[Ordering[Crap]])
 }
