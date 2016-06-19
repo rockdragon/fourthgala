@@ -9,5 +9,7 @@ object main {
   def main(args: Array[String]): Unit = {
     val p =new  Pair(10, 20)
     println("smaller: ", p.smaller)
+
+    println("phantom is: ", implicitly[Ordering[Int]])
   }
 }
