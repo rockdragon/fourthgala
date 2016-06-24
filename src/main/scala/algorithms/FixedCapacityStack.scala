@@ -22,6 +22,9 @@ class FixedCapacityStack[T: Manifest](val cap: Int) {
   }
 
   def pop: T = {
+    if (N - 1 == a.length / 4) {
+      this.resize(a.length / 2)
+    }
     N -= 1
     a(N)
   }
