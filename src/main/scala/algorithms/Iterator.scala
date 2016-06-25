@@ -11,7 +11,7 @@ trait Iterator[T] {
   def remove(): Unit
 }
 
-class ReverseArrayIterator[T:Manifest](val N: Int) extends Iterator[T] {
+class ReverseArrayIterator[T: Manifest](val N: Int) extends Iterator[T] {
   var i: Int = N
   val a = new Array[T](i)
 
