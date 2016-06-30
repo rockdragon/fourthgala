@@ -1,9 +1,14 @@
 package async
 
 import scala.concurrent.{Await, Future, Promise}
+import scala.util.{Failure, Success}
 import scala.concurrent.ExecutionContext.Implicits.global
 
 object AsyncPromises extends App {
+  def sleep(duration: Long) {
+    Thread.sleep(duration)
+  }
+
   def produceSomething: String = "Holy high."
 
   def continueDoingSomethingUnrelated(): Unit = println("do other things.")
@@ -17,6 +22,7 @@ object AsyncPromises extends App {
 
   val producer = Future {
     val r = produceSomething
+    sleep(200)
     p success r
     continueDoingSomethingUnrelated()
   }
@@ -28,6 +34,9 @@ object AsyncPromises extends App {
     }
   }
 
+  consumer onSuccess {
+    case _ => println("DONE")
+  }
 
 }
 
