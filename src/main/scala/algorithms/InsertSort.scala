@@ -16,7 +16,7 @@ object InsertSort extends App {
 
   def printArray[T](array: Array[T]): Unit = {
     print("after holy insertion: ")
-    for (i <- array.indices) print(array(i))
+    for (i <- array.indices) print(array(i) + ",")
     print("\n")
   }
 
