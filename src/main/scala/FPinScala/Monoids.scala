@@ -20,7 +20,6 @@ object _Monoids extends App {
     if (as.length == 0)
       m.zero
     else if (as.length == 1)
-
       f(as(0))
     else {
       val (l, r) = as.splitAt(as.length / 2)
@@ -75,9 +74,7 @@ object _Monoids extends App {
   println("F:", f(10)) // output :=> 1010
 
   def bag[A](as : IndexedSeq[A]): Map[A, Int] =
-    as.foldLeft(Map[A, Int]()) { (acc, k) =>
-      acc.updated(k, acc.getOrElse(k, 0) + 1)
-    }
+    foldMapV(as, mapMergeMonoid[A, Int](intAddition))((a: A) => Map(a -> 1))
 
   val b = bag(Vector("a", "rose", "is", "a", "rose"))
   println("aggreated bag:", b)
