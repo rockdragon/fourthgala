@@ -2,12 +2,6 @@ package FPinScala
 
 object _Monoids extends App {
 
-  trait Monoid[A] {
-    def op(a1: A, a2: A): A
-
-    def zero: A
-  }
-
   trait Foldable[F[_]] {
     def foldRight[A, B](as: F[A])(z: B)(f: (A, B) => B): B
 
@@ -59,6 +53,11 @@ object _Monoids extends App {
 
   println("merged:", m3)
 
+  trait Monoid[A] {
+    def op(a1: A, a2: A): A
+    def zero: A
+  }
+
   def functionMonoid[A, B](B: Monoid[B]): Monoid[A => B] =
     new Monoid[A => B] {
       def zero = a => B.zero
@@ -73,5 +72,13 @@ object _Monoids extends App {
 
   val F: Monoid[Int => String] = functionMonoid(stringMonoid)
   val f = F.op(x => x.toString, y => y.toString)
-  println("F:", f(10))
+  println("F:", f(10)) // output :=> 1010
+
+  def bag[A](as : IndexedSeq[A]): Map[A, Int] =
+    as.foldLeft(Map[A, Int]()) { (acc, k) =>
+      acc.updated(k, acc.getOrElse(k, 0) + 1)
+    }
+
+  val b = bag(Vector("a", "rose", "is", "a", "rose"))
+  println("aggreated bag:", b)
 }
