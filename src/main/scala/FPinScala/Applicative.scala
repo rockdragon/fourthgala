@@ -13,6 +13,15 @@ object _a extends App {
 
     def traverse[A, B](as: List[A])(f: A => F[B]): F[List[B]] =
       as.foldRight(unit(List[B]()))((a, fbs) => map2(f(a), fbs)(_ :: _))
+
+    def sequence[A](fas: List[F[A]]): F[List[A]] =
+      fas.foldRight(unit(List[A]()))((a, fbs) => map2(a, fbs)(_ :: _))
+
+    def replicateM[A](n: Int, fa: F[A]): F[List[A]] =
+      sequence(List.fill(n)(fa))
+
+    def product[A, B](fa: F[A], fb: F[B]): F[(A, B)] =
+      map2(fa, fb)((a, b) => (a, b))
   }
 
 }
