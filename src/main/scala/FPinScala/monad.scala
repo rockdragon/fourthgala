@@ -35,6 +35,9 @@ object _m extends App {
     def filterM[A](ms: List[A])(f: A => F[Boolean]): F[List[A]] =
       ms.foldRight(unit(List[A]()))((x, y) =>
         compose(f, (b: Boolean) => if (b) map2(unit(x), y)(_ :: _) else y)(x))
+
+    def _flatMap[A,B](ma: F[A])(f: A => F[B]): F[B] =
+      compose((_:Unit) => ma, f)(())
   }
 
 }
