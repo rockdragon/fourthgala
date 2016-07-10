@@ -7,7 +7,7 @@ object _a extends App {
     def map2[A, B, C](fa: F[A], fb: F[B])(f: (A, B) => C): F[C]
     def unit[A](a: A): F[A]
 
-    // dirived combinators
+    // derived combinators
     def map[A, B](fa: F[A])(f: A => B): F[B] =
       map2(fa, unit(()))((a, _) => f(a))
 
