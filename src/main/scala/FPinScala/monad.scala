@@ -38,6 +38,15 @@ object _m extends App {
 
     def _flatMap[A,B](ma: F[A])(f: A => F[B]): F[B] =
       compose((_:Unit) => ma, f)(())
+
+    def join[A](mma: F[F[A]]): F[A] =
+      flatMap(mma)(ma => ma)
+
+    def __flatMap[A,B](ma: F[A])(f: A => F[B]): F[B] =
+      join(map(ma)(f))
+
+    def _compose[A,B,C](f: A => F[B], g: B => F[C]): A => F[C] =
+      a => join(map(f(a))(g))
   }
 
 }
