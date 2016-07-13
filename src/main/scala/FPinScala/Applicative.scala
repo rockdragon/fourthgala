@@ -28,14 +28,14 @@ object _a extends App {
     def apply[A,B](fab: F[A => B])(fa: F[A]): F[B] =
       map2(fab, fa)((ab, a) => ab(a))
 
-    def _map2[A,B,C](fa: F[A], fb: F[B])(f: (A, B) => C): F[C] =
-      apply(map(fa)(f.curried))(fb)
-
-    def map3[A, B, C, D](fa: F[A], fb: F[B], fc: F[C])(f: (A, B, C) => D): F[D] =
-      apply(apply(map(fa)(f.curried))(fb))(fc)
-
-    def map4[A, B, C, D, E](fa: F[A], fb: F[B], fc: F[C], fd: F[C])(f: (A, B, C, D) => E): F[E] =
-      apply(apply(apply(map(fa)(f.curried))(fb))(fc))(fd)
+//    def _map2[A,B,C](fa: F[A], fb: F[B])(f: (A, B) => C): F[C] =
+//      apply(map(fa)(f.curried))(fb)
+//
+//    def map3[A, B, C, D](fa: F[A], fb: F[B], fc: F[C])(f: (A, B, C) => D): F[D] =
+//      apply(apply(map(fa)(f.curried))(fb))(fc)
+//
+//    def map4[A, B, C, D, E](fa: F[A], fb: F[B], fc: F[C], fd: F[C])(f: (A, B, C, D) => E): F[E] =
+//      apply(apply(apply(map(fa)(f.curried))(fb))(fc))(fd)
   }
 
 }
