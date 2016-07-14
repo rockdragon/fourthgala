@@ -18,8 +18,10 @@ object _monadIo extends App {
     def unit[A](a: => A): IO[A] = new IO[A] { def run = a }
     def flatMap[A, B](fa: IO[A])(f: A => IO[B]): IO[B] = fa flatMap f
     def apply[A](a: => A): IO[A] = unit(a)
+
   }
 
+  // invoke apply implicitly
   def ReadLine: IO[String] = IO { readLine }
   def PrintLine(msg: String): IO[Unit] = IO { println(msg) }
   def converter: IO[Unit] = for {
