@@ -46,8 +46,9 @@ object Parallel extends App {
       ps.foldLeft(unit(List[B]()))((pbs: Par[List[B]], a: A) =>
         map(pbs)(listB => listB :+ f(a)))
     }
-
-    // applications
-    def sortPar(parList: Par[List[Int]]): Par[List[Int]] =
-      Par.map(parList)(_.sorted)
   }
+
+  // applications
+  def sortPar(parList: Par[List[Int]]): Par[List[Int]] =
+    Par.map(parList)(_.sorted)
+}
