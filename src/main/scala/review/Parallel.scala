@@ -39,13 +39,27 @@ object Parallel extends App {
     def asyncF[A, B](f: A => B): A => Par[B] =
       a => lazyUnit(f(a))
 
-    def map[A, B](a: Par[A])(f: A => B): Par[B] =
-      map2(a, unit(()))((a, _) => f(a))
+    def map[A, B](pa: Par[A])(f: A => B): Par[B] =
+      map2(pa, unit(()))((a, _) => f(a))
 
-    def parMap[A, B](ps: List[A])(f: A => B): Par[List[B]] = {
-      ps.foldLeft(unit(List[B]()))((pbs: Par[List[B]], a: A) =>
-        map(pbs)(listB => listB :+ f(a)))
+    def parMap[A, B](as: List[A])(f: A => B): Par[List[B]] = {
+      as.foldRight(unit(List[B]()))((a: A, pbs: Par[List[B]]) =>
+        map(pbs)(f(a) :: _))
     }
+
+    def sequence[A](ps: List[Par[A]]): Par[List[A]] = {
+      ps.foldRight(unit(List[A]()))((pa: Par[A], pas: Par[List[A]]) =>
+        map2(pa, pas)((a, list) => a :: list)
+      )
+    }
+
+    def parFilter[A](as: List[A])(f: A => Boolean): Par[List[A]] =
+      as.foldRight(unit(List[A]()))((a: A, pas: Par[List[A]]) =>
+        map(pas)(listA => f(a) match {
+          case true => a :: listA
+          case _ => listA
+        })
+      )
   }
 
   // applications
