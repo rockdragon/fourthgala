@@ -1,4 +1,4 @@
-package review
+package review.parallel
 
 import java.util.concurrent.{Callable, Future, TimeUnit, ExecutorService, Executors}
 
@@ -67,19 +67,19 @@ object Parallel extends App {
   }
 
   // application
-  val executorService = Executors.newCachedThreadPool();
+  val executorService = Executors.newFixedThreadPool(10);
 
   // sorting
   def sortPar(parList: Par[List[Int]]): Par[List[Int]] =
     Par.map(parList)(_.sorted)
 
-  val sortedPar = sortPar(Par.unit(List(10 to 1 by -1: _*)))(executorService)
-  println(sortedPar.get())
+  val sortedPar = sortPar(Par.unit(List(10 to 1 by -1: _*)))
+  println(run(executorService)(sortedPar).get())
 
   // count
   val words = List("hello", "world")
-  val countedPar = Par.parListOp(words)(_.length)(_.sum)(executorService)
-  println(countedPar.get())
+  val countedPar = Par.parListOp(words)(_.length)(_.sum)
+  println(run(executorService)(countedPar).get())
 
   // teardown
   executorService.shutdown()
