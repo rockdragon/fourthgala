@@ -1,6 +1,6 @@
 package review
 
-import java.util.concurrent.{Callable, Future, TimeUnit, ExecutorService}
+import java.util.concurrent.{Callable, Future, TimeUnit, ExecutorService, Executors}
 
 object Parallel extends App {
 
@@ -53,16 +53,35 @@ object Parallel extends App {
       )
     }
 
-    def parFilter[A](as: List[A])(f: A => Boolean): Par[List[A]] =
-      as.foldRight(unit(List[A]()))((a: A, pas: Par[List[A]]) =>
-        map(pas)(listA => f(a) match {
-          case true => a :: listA
-          case _ => listA
-        })
-      )
+    def parFilter[A](l: List[A])(f: A => Boolean): Par[List[A]] = {
+      val pars: List[Par[List[A]]] =
+        l map asyncF((a: A) => if (f(a)) List(a) else List())
+      map(sequence(pars))(_.flatten)
+    }
+
+    def parListOp[A, B, C](l: List[A])(f: A => B)(op: List[B] => C): Par[C] = {
+      val list: List[Par[B]] =
+        l map asyncF((a: A) => f(a))
+      map(sequence(list))(op)
+    }
   }
 
-  // applications
+  // application
+  val executorService = Executors.newCachedThreadPool();
+
+  // sorting
   def sortPar(parList: Par[List[Int]]): Par[List[Int]] =
     Par.map(parList)(_.sorted)
+
+  val sortedPar = sortPar(Par.unit(List(10 to 1 by -1: _*)))(executorService)
+  println(sortedPar.get())
+
+  // count
+  val words = List("hello", "world")
+  val countedPar = Par.parListOp(words)(_.length)(_.sum)(executorService)
+  println(countedPar.get())
+
+  // teardown
+  executorService.shutdown()
+
 }
