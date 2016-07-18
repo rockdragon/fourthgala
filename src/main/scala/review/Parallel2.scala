@@ -4,12 +4,12 @@ import java.util.concurrent.atomic.AtomicReference
 import java.util.concurrent._
 
 object Parallel2 extends App {
+  type Par[A] = ExecutorService => Future[A]
+  type SideEffect = Unit
 
   sealed trait Future[A] {
-    private[Parallel2] def apply(k: A => Unit): Unit
+    private[Parallel2] def apply(k: A => SideEffect): SideEffect
   }
-
-  type Par[A] = ExecutorService => Future[A]
 
   def run[A](es: ExecutorService)(p: Par[A]): A = {
     val ref = new AtomicReference[A]
@@ -21,5 +21,20 @@ object Parallel2 extends App {
     latch.await
     ref.get
   }
+
+  def unit[A](a: A): Par[A] = es => new Future[A] {
+    def apply(cb: A => SideEffect): SideEffect = cb(a)
+  }
+
+  def eval(es: ExecutorService)(r: => SideEffect): SideEffect =
+    es.submit(new Callable[SideEffect] { def call = r })
+
+  def fork[A](a: => Par[A]): Par[A] = es => new Future[A] {
+    def apply(cb: A => SideEffect): SideEffect =
+      eval(es)(a(es)(cb))
+  }
+
+//  def map2[A, B, C](a: Par[A], b: Par[B])(f: (A, B) => C): Par[C] =
+  
 
 }
