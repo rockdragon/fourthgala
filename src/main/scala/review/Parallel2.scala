@@ -4,11 +4,6 @@ import java.util.concurrent.atomic.AtomicReference
 import java.util.concurrent.{ ExecutorService, CountDownLatch, Callable, Executors }
 import akka.actor.{ Actor, Props, ActorSystem }
 
-class MyActor extends Actor {
-  def receive = {
-    case msg => println(s"Got message: ${msg}")
-  }
-}
 
 // example:
 //  val system = ActorSystem("mySystem")
@@ -19,6 +14,18 @@ class MyActor extends Actor {
 object Parallel2 extends App {
   type Par[A] = ExecutorService => Future[A]
   type SideEffect = Unit
+
+  object WrappedActor {
+    private[WrappedActor] class InternalActor extends Actor {
+      def receive = {
+        case msg => println(s"Got message: ${msg}")
+      }
+    }
+
+
+  }
+
+
 
   sealed trait Future[A] {
     private[Parallel2] def apply(k: A => SideEffect): SideEffect
