@@ -9,16 +9,25 @@ autoCompilerPlugins := true
 addCompilerPlugin(
   "org.scala-lang.plugins" % "scala-continuations-plugin_2.11.8" % "1.0.2")
 
-libraryDependencies += "org.scalatest" %% "scalatest" % "2.2.4" % "test"
-libraryDependencies += "com.typesafe.akka" %% "akka-actor" % "2.4.7"
-libraryDependencies += "org.scala-lang.plugins" %% "scala-continuations-library" % "1.0.2"
 
-libraryDependencies ++= Seq(
-  "org.scalaz" %% "scalaz-core" % scalazVersion,
-  "org.scalaz" %% "scalaz-effect" % scalazVersion,
-  "org.scalaz" %% "scalaz-typelevel" % scalazVersion,
-  "org.scalaz" %% "scalaz-scalacheck-binding" % scalazVersion % "test"
-)
+libraryDependencies ++= {
+  val akkaVersion = "2.4.7"
+  val sprayVersion = "1.2.3"
+  Seq(
+    "com.typesafe.akka" %% "akka-actor" % akkaVersion,
+    "com.typesafe.akka" %% "akka-slf4j" % akkaVersion,
+    "ch.qos.logback" % "logback-classic" % "1.1.7",
+    "io.spray" % "spray-can" % sprayVersion,
+    "io.spray" % "spray-routing" % sprayVersion,
+    "io.spray" %%  "spray-json" % "1.3.2",
+    "org.scalaz" %% "scalaz-core" % scalazVersion,
+    "org.scalaz" %% "scalaz-effect" % scalazVersion,
+    "org.scalaz" %% "scalaz-typelevel" % scalazVersion,
+    "org.scalaz" %% "scalaz-scalacheck-binding" % scalazVersion % "test",
+    "org.scalatest" %% "scalatest" % "2.2.4" % "test",
+    "org.scala-lang.plugins" %% "scala-continuations-library" % "1.0.2"
+  )
+}
 
 scalacOptions += "-P:continuations:enable"
 
