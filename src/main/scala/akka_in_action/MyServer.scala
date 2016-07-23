@@ -1,4 +1,4 @@
-package akka_in_action
+package akka_in_action.MyServer
 
 import akka.actor.{Props, ActorSystem, Actor}
 import akka.io.IO
@@ -11,6 +11,11 @@ trait MyService extends HttpService {
     path("something") {
       respondWithMediaType(`text/plain`) {
         complete("okay")
+      }
+    }
+    path("hello") {
+      respondWithMediaType(`text/plain`) {
+        complete("kitty")
       }
     }
   }
