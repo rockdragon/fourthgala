@@ -2,10 +2,10 @@ package akka_in_action.tests
 
 import akka.actor.ActorSystem
 import akka.testkit.{TestKit}
-import org.scalatest.{MustMatchers, WordSpec}
+import org.scalatest.{WordSpecLike, MustMatchers}
 
 class SilentActor01Test extends TestKit(ActorSystem("testsystem"))
-with WordSpec
+with WordSpecLike
 with MustMatchers
 with StopSystemAfterAll {
 
