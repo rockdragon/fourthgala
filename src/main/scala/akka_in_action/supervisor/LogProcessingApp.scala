@@ -5,7 +5,6 @@ import akka.actor.{Actor, Props, ActorSystem}
 case class DbCon(conn: String)
 class DbWriter(dbCon: DbCon) extends Actor { def receive = { case _ => } }
 class DbSupervisor(props: Props) extends Actor { def receive = { case _ => } }
-class DbWriter extends Actor { def receive = { case _ => } }
 class LogProcSupervisor(props: Props) extends Actor { def receive = { case _ => } }
 class FileWatchingSupervisor(sources: Vector[String], props: Props) extends Actor { def receive = { case _ => } }
 
