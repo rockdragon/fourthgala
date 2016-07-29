@@ -16,15 +16,12 @@ class RingBufferSpec extends FlatSpec with Matchers {
     size = ringBuffer.enqueue(4)
     size should be (3)
 
-
     var elem = ringBuffer.dequeue
     elem should be (2)
     elem = ringBuffer.dequeue
     elem should be (3)
     elem = ringBuffer.dequeue
     elem should be (4)
-
-
   }
 
 }
