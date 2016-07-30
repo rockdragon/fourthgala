@@ -15,7 +15,7 @@ object futuristicErrors extends App {
   }
 
   futureFail onComplete {
-    case Failure(e) => println(e)
+    case Failure(NonFatal(e)) => println(e)
     case Success(value) => println(value)
   }
 
