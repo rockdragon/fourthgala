@@ -17,7 +17,9 @@ class RingBuffer[T: Manifest](capacity: Int) {
   def enqueue(elem: T): Int = {
     this.queue(this._tail) = elem
 
-    if (!this.isFull) this._size += 1 else this._head += 1
+    if (!this.isFull) this._size += 1
+    else this._head = (this._head + 1) % this.capacity
+
     this._tail = (this._head + this._size) % this.capacity
 
     //println("enqueue", this.queue.mkString(","))
