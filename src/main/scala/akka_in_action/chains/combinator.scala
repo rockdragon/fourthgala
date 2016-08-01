@@ -4,7 +4,7 @@ import akka.actor.ActorSystem
 
 import scala.concurrent.Future
 
-object combinators extends App {
+object combinator extends App {
   implicit val system = ActorSystem()
   import system.dispatcher
 
