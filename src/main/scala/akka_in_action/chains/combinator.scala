@@ -12,7 +12,7 @@ object combinator extends App {
     case _ => 0
   }
   val futureY = Future(10/0) recover {
-    case _ => 0
+    case _ => 1
   }
 
   val futures = Seq(futureX, futureY)
