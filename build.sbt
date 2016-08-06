@@ -7,8 +7,6 @@ scalaVersion := "2.11.8"
 autoCompilerPlugins := true
 addCompilerPlugin("org.scala-lang.plugins" % "scala-continuations-plugin_2.11.8" % "1.0.2")
 
-addSbtPlugin("com.typesafe.sbt" % "sbt-multi-jvm" % "0.3.8")
-
 libraryDependencies ++= {
   val akkaVersion = "2.4.9-RC1"
   val sprayVersion = "1.3.3"
