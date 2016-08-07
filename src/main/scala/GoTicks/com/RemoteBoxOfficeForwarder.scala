@@ -48,5 +48,5 @@ class RemoteBoxOfficeForwarder extends Actor with ActorLogging {
 class RestInterfaceWatch extends RestInterface
 with ConfiguredRemoteBoxOfficeDeployment {
   val system = ActorSystem("RestInterfaceWatch")
-  val restInterface = system.actorOf(Props[RestInterfaceWatch]), "restInterface"
+  val restInterface = system.actorOf(Props[RestInterfaceWatch], "restInterface")
 }
