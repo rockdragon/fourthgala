@@ -33,6 +33,6 @@ object server extends App {
 
     IO(Http) ! Http.Bind(handler, interface = "localhost", port = 8080)
   } catch {
-    case e => println("error: ", e)
+    case e: Throwable => println("error: ", e)
   }
 }

@@ -1,14 +1,19 @@
 import sbt.Keys._
 
 lazy val commonSettings = Seq(
-  name := """fourthgala""",
+  name := "fourthgala",
   version := "1.0",
   scalaVersion := "2.11.8",
   autoCompilerPlugins := true
 )
 
+lazy val greeting = taskKey[Unit]("An example task")
+
 lazy val root = (project in file("."))
   .settings(commonSettings: _*)
+  .settings(
+    greeting := { println(s"Hi, welcome to the ${name.value} project!") }
+  )
   .settings(
     libraryDependencies ++= {
       val akkaVersion = "2.4.9-RC2"
