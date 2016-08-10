@@ -1,13 +1,14 @@
 package akka_in_action.pubsub
 
+import org.scalatest._
+
 import akka.actor.ActorSystem
 import akka.testkit.TestProbe
+
 import scala.concurrent.duration._
 
 object EventStream extends App {
   implicit val system = ActorSystem("akka-system")
-
-  import system.dispatcher
 
   val deliverOrder = TestProbe()
   val giftModule = TestProbe()

@@ -1,7 +1,7 @@
 package akka_in_action.system
 
 import akka.actor.Actor
-import akka.remote.ContainerFormats.ActorRef
+import akka.actor.ActorRef
 
 import scala.collection.mutable.ListBuffer
 import scala.concurrent.duration.FiniteDuration
