@@ -20,5 +20,8 @@ object TestDeadLetter extends App {
   val msg = new Order("me", "Akka in Action", 1)
   actor ! msg
 
+  val msg2 = new Order("you", "how dare", 3)
+  system.deadLetters ! msg2
+
   system.shutdown
 }
