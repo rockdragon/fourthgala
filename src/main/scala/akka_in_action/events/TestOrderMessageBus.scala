@@ -1,7 +1,7 @@
 package akka_in_action.events
 
-import akka.actor.ActorSystem
-import akka.testkit.TestProbe
+import akka.actor.{ActorSystem, Props}
+
 import scala.concurrent.duration._
 
 object TestOrderMessageBus extends App {
@@ -10,19 +10,15 @@ object TestOrderMessageBus extends App {
 
   val bus = new OrderMessageBus
 
-  val singleBooks = TestProbe()
-  bus.subscribe(singleBooks.ref, false)
+  val singleBooks = system.actorOf(Props(new TestActor("singleBooks")))
+  bus.subscribe(singleBooks, false)
 
-  val multiBooks = TestProbe()
-  bus.subscribe(multiBooks.ref, true)
+  val multiBooks =  system.actorOf(Props(new TestActor("multiBooks")))
+  bus.subscribe(multiBooks, true)
 
   val msg = new Order("me", "Akka in action", 1)
   bus.publish(msg)
-  singleBooks.expectMsg(msg)
-  multiBooks.expectNoMsg(3 seconds)
 
   val msg2 = new Order("me", "Akka in action", 3)
   bus.publish(msg2)
-  singleBooks.expectNoMsg(3 seconds)
-  multiBooks.expectMsg(msg2)
 }
