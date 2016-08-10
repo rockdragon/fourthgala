@@ -9,19 +9,19 @@ object TestOrderMessageBus extends App {
   import system.dispatcher
 
   val bus = new OrderMessageBus
+
   val singleBooks = TestProbe()
-
   bus.subscribe(singleBooks.ref, false)
+
   val multiBooks = TestProbe()
-
   bus.subscribe(multiBooks.ref, true)
-  val msg = new Order("me", "Akka in action", 2)
 
+  val msg = new Order("me", "Akka in action", 1)
   bus.publish(msg)
   singleBooks.expectMsg(msg)
   multiBooks.expectNoMsg(3 seconds)
-  val msg2 = new Order("me", "Akka in action", 3)
 
+  val msg2 = new Order("me", "Akka in action", 3)
   bus.publish(msg2)
   singleBooks.expectNoMsg(3 seconds)
   multiBooks.expectMsg(msg2)
