@@ -17,10 +17,10 @@ object TestDeadLetter extends App {
   val actor = system.actorOf(Props[EchoActor], "echo")
   actor ! PoisonPill
 
-  val msg = new Order("me", "Akka in Action", 1)
+  val msg = Order("me", "Akka in Action", 1)
   actor ! msg
 
-  val msg2 = new Order("you", "how dare", 3)
+  val msg2 = Order("you", "how dare", 3)
   system.deadLetters ! msg2
 
   system.shutdown
