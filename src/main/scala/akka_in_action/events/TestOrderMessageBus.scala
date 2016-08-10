@@ -2,8 +2,6 @@ package akka_in_action.events
 
 import akka.actor.{ActorSystem, Props}
 
-import scala.concurrent.duration._
-
 object TestOrderMessageBus extends App {
   implicit val system = ActorSystem("actor-system")
   import system.dispatcher
