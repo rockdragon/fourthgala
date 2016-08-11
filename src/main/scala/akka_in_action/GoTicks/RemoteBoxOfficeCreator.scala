@@ -1,6 +1,6 @@
-package GoTicks.com
+package akka_in_action.GoTicks
 
-import GoTicks.com.boxOffice.BoxOfficeCreator
+import boxOffice.BoxOfficeCreator
 import akka.actor.{Props, Actor}
 import com.typesafe.config.ConfigFactory
 

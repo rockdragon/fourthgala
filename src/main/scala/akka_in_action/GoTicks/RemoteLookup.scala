@@ -1,4 +1,4 @@
-package GoTicks.com
+package akka_in_action.GoTicks
 
 import scala.concurrent.duration._
 import akka.actor._

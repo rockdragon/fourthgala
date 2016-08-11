@@ -1,4 +1,4 @@
-package GoTicks.com
+package akka_in_action.GoTicks
 
 import akka.actor.{Props, Actor, ActorSystem}
 import com.typesafe.config.ConfigFactory

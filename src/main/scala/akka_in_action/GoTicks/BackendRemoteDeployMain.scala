@@ -1,6 +1,6 @@
-package GoTicks.com
+package akka_in_action.GoTicks
 
-import GoTicks.com.boxOffice.RestInterface
+import boxOffice.RestInterface
 import akka.actor.{Props, ActorSystem}
 import com.typesafe.config.ConfigFactory
 import spray.can.Http

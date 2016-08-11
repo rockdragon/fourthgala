@@ -1,4 +1,4 @@
-package GoTicks.com
+package akka_in_action.GoTicks
 
 import akka.actor._
 import com.typesafe.config._

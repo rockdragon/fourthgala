@@ -1,4 +1,4 @@
-package GoTicks.com
+package akka_in_action.GoTicks
 
 import akka.actor.Actor.Receive
 import akka.actor._

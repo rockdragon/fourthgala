@@ -1,6 +1,6 @@
-package GoTicks.com
+package akka_in_action.GoTicks
 
-import GoTicks.com.boxOffice.{RestInterface, BoxOffice, BoxOfficeCreator}
+import boxOffice.{RestInterface, BoxOffice, BoxOfficeCreator}
 import akka.actor._
 
 import scala.concurrent.duration._
