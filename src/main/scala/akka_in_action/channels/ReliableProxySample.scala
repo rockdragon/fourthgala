@@ -4,7 +4,7 @@ import akka.actor.{Props, ActorSystem}
 import akka.contrib.pattern.ReliableProxy
 import scala.concurrent.duration._
 
-object ReliableProxy extends App {
+object ReliableProxySample extends App {
   implicit val system = ActorSystem("actor-system")
   import system.dispatcher
 

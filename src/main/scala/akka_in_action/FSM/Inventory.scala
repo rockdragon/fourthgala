@@ -14,7 +14,7 @@ case class BookRequest(name: String, actorRef: ActorRef)
 case class StateData(nrBooksInStore: Int,
                     pendingRequests: Seq[BookRequest])
 case class BookSupply(qty: Int)
-case class PendingRequests
+case class PendingRequests()
 
 class Inventory(publisher: ActorRef) extends Actor with FSM[State, StateData]{
   startWith(WaitForRequests, new StateData(0, Seq()))
