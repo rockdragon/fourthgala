@@ -2,6 +2,9 @@ package akka_in_action.FSM
 
 import akka.actor.ActorSystem
 import akka.agent.Agent
+import akka.util.Timeout
+
+import scala.concurrent.Await
 import scala.concurrent.duration._
 
 case class BookStatics(val nameBook: String, nrSold: Int)
@@ -14,16 +17,22 @@ object AgentSample extends App {
 
   import system.dispatcher
 
-  val stateAgent = Agent(StateBookStatics(0, Map()))
+  implicit val timeout = Timeout(1000 millis)
 
-  val newState = StateBookStatics(1, Map("book" -> BookStatics("book", 1)))
+  val stateAgent = Agent(StateBookStatics(0, Map()))
+  for(state <- stateAgent) {
+    println("1.", state)
+  }
+
+  val newState = StateBookStatics(3333, Map("book" -> BookStatics("book", 3333)))
   stateAgent send newState
 
-  println("1.", stateAgent.get)
+  val future = stateAgent alter(state =>
+    state.copy(state.sequence,state.books)
+  )
 
-  Thread.sleep(500)
-  println("2.", stateAgent.get)
+  val state2 = Await.result(future, 1 seconds)
+  println("2.", state2)
 
-  Thread.sleep(100)
   system shutdown
 }
