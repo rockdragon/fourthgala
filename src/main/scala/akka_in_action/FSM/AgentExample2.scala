@@ -9,7 +9,7 @@ object AgentExample2 extends App {
 
   val agent1 = Agent(2)
 
-  // applicative
+  // monadic
   val agent2 = agent1 map (_ + 1)
   println(agent2.get)
 
