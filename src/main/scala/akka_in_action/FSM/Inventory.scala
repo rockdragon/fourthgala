@@ -7,11 +7,13 @@ case object WaitForRequests extends State
 case object ProcessRequest extends State
 case object WaitForPublisher extends State
 case object SoldOut extends State
+case object BookSupplySoldOut extends State
 case object ProcessSoldOut extends State
 case object PublisherRequest extends State
 case class BookRequest(name: String, actorRef: ActorRef)
 case class StateData(nrBooksInStore: Int,
                     pendingRequests: Seq[BookRequest])
+case class BookSupply(qty: Int)
 case class PendingRequests
 
 class Inventory(publisher: ActorRef) extends Actor with FSM[State, StateData]{
@@ -59,5 +61,11 @@ class Inventory(publisher: ActorRef) extends Actor with FSM[State, StateData]{
     case _ -> WaitForPublisher => {
       publisher ! PublisherRequest
     }
+  }
+
+  onTermination {
+    case StopEvent(FSM.Normal, state, data) =>
+    case StopEvent(FSM.Shutdown, state, data) =>
+    case StopEvent(FSM.Failure(e), state, data) =>
   }
 }
