@@ -24,5 +24,5 @@ object STM extends App {
     }
   }
 
-  Await.ready(f, 2 second)
+  Await.ready(f, Duration.Inf)
 }
