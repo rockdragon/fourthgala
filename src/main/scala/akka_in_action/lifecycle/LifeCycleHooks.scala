@@ -2,15 +2,16 @@ package akka_in_action.lifecycle
 
 import akka.actor.{ActorSystem, Props, ActorLogging, Actor}
 
-class LifeCycleHooks extends Actor
-with ActorLogging {
+class LifeCycleHook extends Actor
+  with ActorLogging {
   println("Constructor")
 
   override def preStart() {
     println("preStart")
   }
 
-  override def preRestart(reason: Throwable, message: Option[Any]): Unit = {
+  override def preRestart(reason: Throwable,
+                          message: Option[Any]): Unit = {
     println("preRestart")
     super.preRestart(reason, message)
   }
@@ -26,7 +27,6 @@ with ActorLogging {
 
   def receive = {
     case "restart" => throw new IllegalStateException("force restart")
-
     case msg: AnyRef => println("Receive")
   }
 }
@@ -41,7 +41,7 @@ object app extends App {
   implicit val system = ActorSystem("my-system")
 
   val testActor = system.actorOf(Props[TestActor], "Sender")
-  val testActorRef = system.actorOf(Props[LifeCycleHooks], "LifeCycleHooks")
+  val testActorRef = system.actorOf(Props[LifeCycleHook], "LifeCycleHook")
   testActorRef ! "restart"
   Thread.sleep(2000)
 
