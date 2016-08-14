@@ -1,6 +1,6 @@
 package akka_in_action.cluster
 
-import akka.actor.{ActorSystem}
+import akka.actor.{ActorSystem, Props}
 import akka.cluster.Cluster
 import com.typesafe.config.{Config, ConfigFactory}
 
@@ -30,6 +30,7 @@ object ClusterSystem extends App {
   val commonConfig = loadCommonConfig
 
   val system2551 = startSeedNode("127.0.0.1", 2551, commonConfig)
+  val listener = system2551.actorOf(Props[ClusterDomainEventListener], "listener")
 
   Thread.sleep(1000)
 
