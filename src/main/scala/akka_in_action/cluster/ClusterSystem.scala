@@ -7,18 +7,24 @@ import com.typesafe.config.{Config, ConfigFactory}
 object ClusterSystem extends App {
   def loadCommonConfig: Config = ConfigFactory.load("cluster")
 
-  def remoteConfig(hostname: String, port: Int, commonConfig: Config): Config = {
-//    ConfigFactory.invalidateCaches()
+  def remoteConfig(hostname: String, port: Int, commonConfig: Config, isMaster: Boolean = false): Config = {
+    //    ConfigFactory.invalidateCaches()
+    val roles = if (isMaster)
+      """["seed", "master"]""".stripMargin
+    else
+      """["seed"]""".stripMargin
     val remoteConfigString =
       s"""
          akka.remote.netty.tcp.hostname = $hostname
          akka.remote.netty.tcp.port = $port
+         akka.cluster.roles = $roles
        """.stripMargin
+    println(remoteConfigString)
     ConfigFactory.parseString(remoteConfigString).withFallback(commonConfig)
   }
 
-  def startSeedNode(hostname: String, port: Int, commonConfig: Config): ActorSystem = {
-    val seedConfig = remoteConfig(hostname, port, commonConfig)
+  def startSeedNode(hostname: String, port: Int, commonConfig: Config, isMaster: Boolean = false): ActorSystem = {
+    val seedConfig = remoteConfig(hostname, port, commonConfig, isMaster)
     ActorSystem("words", seedConfig)
   }
 
@@ -29,7 +35,7 @@ object ClusterSystem extends App {
 
   val commonConfig = loadCommonConfig
 
-  val system2551 = startSeedNode("127.0.0.1", 2551, commonConfig)
+  val system2551 = startSeedNode("127.0.0.1", 2551, commonConfig, true)
   val listener = system2551.actorOf(Props[ClusterDomainEventListener], "listener")
 
   Thread.sleep(1000)
