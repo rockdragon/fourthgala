@@ -23,7 +23,7 @@ class Book(var title: String = "", var author: String = "") {
   def display(): Unit = println(this)
 }
 
-object main {
+object main3 {
   def main(args: Array[String]): Unit = {
     val book = new Book()
     book set Title to "Scala for the impatient" set Author to "Cay Horstman" display

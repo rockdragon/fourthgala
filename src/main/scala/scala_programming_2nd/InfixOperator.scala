@@ -1,6 +1,6 @@
 package scala_programming_2nd
 
-object main {
+object main7 {
   def approximate(array:Seq[Int], value:Int): Int Either Int = {
     if(array.contains(value)) {
       Left(array.indexOf(value))

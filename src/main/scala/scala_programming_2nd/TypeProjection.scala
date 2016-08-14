@@ -13,7 +13,7 @@ object Holy{
   }
 }
 
-object main{
+object main22 {
   def main(args:Array[String]):Unit = {
     val crapper = Holy.crapper("holy crap!")
     println(crapper)

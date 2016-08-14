@@ -31,7 +31,7 @@ trait B {
   val k = w
 }
 
-object main {
+object main14 {
   def main(args: Array[String]): Unit = {
     val m = new Meters(100)
     val m2 = new Meters(300)

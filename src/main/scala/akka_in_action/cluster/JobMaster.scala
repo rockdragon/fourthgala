@@ -22,5 +22,6 @@ class JobMaster extends Actor
 class JobWorker extends Actor
   with ActorLogging {
   def receive = {
+    case _ =>
   }
 }

@@ -1,6 +1,6 @@
 package scala_programming_2nd
 
-object main {
+object main8 {
 
   sealed trait List[+A]
 

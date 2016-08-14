@@ -1,6 +1,6 @@
 package scala_programming_2nd
 
-object main {
+object main19 {
 
   sealed trait Tree[+A]
   case class Leaf[A](value: A) extends Tree[A]

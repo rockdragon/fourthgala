@@ -19,7 +19,7 @@ class Network {
 }
 
 
-object main {
+object main10 {
   def main(args: Array[String]): Unit = {
     val qq = new Network
     val wx = new Network

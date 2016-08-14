@@ -2,7 +2,7 @@ package scala_programming_2nd
 
 import scala.collection.mutable._
 
-object main {
+object main9 {
 
   def indexes(s: String): LinkedHashMap[Char, SortedSet[Int]] = {
     var m = LinkedHashMap[Char, SortedSet[Int]]()

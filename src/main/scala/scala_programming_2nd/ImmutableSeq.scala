@@ -2,7 +2,7 @@ package scala_programming_2nd
 
 import scala.collection.immutable._
 
-object main {
+object main6 {
 
   def indexes(s: String): Map[Char, Set[Int]] = {
     val m = Map[Char, Set[Int]]()

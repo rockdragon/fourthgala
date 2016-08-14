@@ -1,6 +1,6 @@
 package scala_programming_2nd
 
-object main {
+object main2 {
   type Closable = {def close(): Unit}
   def executor(target: Closable, handler: Closable => Unit): Unit = {
     try{

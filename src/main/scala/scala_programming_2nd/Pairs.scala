@@ -34,7 +34,7 @@ class ExchangeablePair[T, S](private var first: T, private var second: S) {
   }
 }
 
-object main {
+object main12 {
   def middle[T](t: Iterable[T]): T = {
     val list = t.toList
     list(list.size / 2)

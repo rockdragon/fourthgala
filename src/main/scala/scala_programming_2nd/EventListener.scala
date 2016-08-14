@@ -39,7 +39,7 @@ object ButtonModule extends ListenerSupport {
   }
 }
 
-object main {
+object main1 {
   import ButtonModule._
 
   def main(args: Array[String]):Unit = {

@@ -6,7 +6,7 @@ class GenericArray [T: Manifest](val first: T, val second: T) {
   r(1) = second
 }
 
-object main {
+object main5 {
   def main(args: Array[String]):Unit = {
     val g = new GenericArray[Int] (10, 20)
     println(g.r(0))

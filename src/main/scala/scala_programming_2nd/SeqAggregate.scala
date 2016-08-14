@@ -2,7 +2,7 @@ package scala_programming_2nd
 
 import scala.collection.immutable._
 
-object main {
+object main16 {
 
   def aggr(s: String): Map[Char, Int] = {
     s.par.aggregate(Map[Char, Int]())(

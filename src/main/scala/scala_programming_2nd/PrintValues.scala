@@ -1,6 +1,6 @@
 package scala_programming_2nd
 
-object main {
+object main13 {
   def printValues(f: Int => Int, from: Int, to: Int): Seq[Int] = {
     for (i <- from to to) yield f.apply(i)
   }
