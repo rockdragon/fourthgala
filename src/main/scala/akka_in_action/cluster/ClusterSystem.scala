@@ -1,6 +1,6 @@
 package akka_in_action.cluster
 
-import akka.actor.{ActorSystem, Address}
+import akka.actor.{ActorSystem}
 import akka.cluster.Cluster
 import com.typesafe.config.{Config, ConfigFactory}
 
@@ -8,7 +8,7 @@ object ClusterSystem extends App {
   def loadCommonConfig: Config = ConfigFactory.load("cluster")
 
   def remoteConfig(hostname: String, port: Int, commonConfig: Config): Config = {
-    ConfigFactory.invalidateCaches()
+//    ConfigFactory.invalidateCaches()
     val remoteConfigString =
       s"""
          akka.remote.netty.tcp.hostname = $hostname
