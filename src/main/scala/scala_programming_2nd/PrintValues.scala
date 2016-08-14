@@ -1,4 +1,4 @@
-package me.moye.practise.printValues
+package scala_programming_2nd
 
 object main {
   def printValues(f: Int => Int, from: Int, to: Int): Seq[Int] = {

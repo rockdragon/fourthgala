@@ -1,4 +1,4 @@
-package me.moye.practise.infixOperator
+package scala_programming_2nd
 
 object main {
   def approximate(array:Seq[Int], value:Int): Int Either Int = {

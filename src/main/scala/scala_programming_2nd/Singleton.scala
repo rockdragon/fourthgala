@@ -1,4 +1,4 @@
-package me.moye.practise.singleton
+package scala_programming_2nd
 
 class Document {
   def setTitle(title: String): this.type = {this}

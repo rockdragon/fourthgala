@@ -1,4 +1,4 @@
-package me.moye.practise.exceptionHandler
+package scala_programming_2nd
 
 object main {
   type Closable = {def close(): Unit}

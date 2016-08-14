@@ -1,4 +1,4 @@
-package me.moye.practise.genericArray
+package scala_programming_2nd
 
 class GenericArray [T: Manifest](val first: T, val second: T) {
   val r = new Array[T](2)

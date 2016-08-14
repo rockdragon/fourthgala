@@ -1,4 +1,4 @@
-package me.moye.practise.typeProjection
+package scala_programming_2nd
 
 object Holy{
 

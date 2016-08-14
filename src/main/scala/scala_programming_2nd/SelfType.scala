@@ -1,4 +1,4 @@
-package me.moye.practise.selfType
+package scala_programming_2nd
 
 abstract class Dim[T](val value: Double, val name: String) {
   this: T =>

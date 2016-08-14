@@ -1,4 +1,4 @@
-package me.moye.practise.bug
+package scala_programming_2nd
 
 object then
 object show

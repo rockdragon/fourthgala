@@ -1,4 +1,4 @@
-package me.moye.practise.genericList
+package scala_programming_2nd
 
 abstract class List[+T] {
   def isEmpty: Boolean

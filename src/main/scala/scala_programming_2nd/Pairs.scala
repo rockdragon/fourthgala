@@ -1,4 +1,4 @@
-package me.moye.practise.pairs
+package scala_programming_2nd
 
 class Pair[T, S](val p: (T, S)) {
   def swap = (p._2, p._1)

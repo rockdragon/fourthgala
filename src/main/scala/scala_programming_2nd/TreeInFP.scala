@@ -1,4 +1,4 @@
-package me.moye.practise.treeInFP
+package scala_programming_2nd
 
 object main {
 

@@ -1,4 +1,4 @@
-package me.moye.practise.immutableSeq
+package scala_programming_2nd
 
 import scala.collection.immutable._
 

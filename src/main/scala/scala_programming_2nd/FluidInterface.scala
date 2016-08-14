@@ -1,4 +1,4 @@
-package me.moye.practise.fluidInterface
+package scala_programming_2nd
 
 object Title
 object Author
