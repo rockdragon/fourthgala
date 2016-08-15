@@ -20,8 +20,10 @@ lazy val root = (project in file("."))
       val sprayVersion = "1.3.3"
       val scalazVersion = "7.1.0"
       val slickVersion = "3.1.1"
+      val hikariCPVersion = "2.4.6"
       Seq(
         "com.typesafe.slick" %% "slick" % slickVersion,
+        "com.typesafe.slick" %% "slick-hikaricp" % slickVersion,
         "com.typesafe.akka" %% "akka-actor" % akkaVersion,
         "com.typesafe.akka" %% "akka-slf4j" % akkaVersion,
         "com.typesafe.akka" %% "akka-agent" % akkaVersion,
