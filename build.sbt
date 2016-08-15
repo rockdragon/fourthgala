@@ -21,9 +21,11 @@ lazy val root = (project in file("."))
       val scalazVersion = "7.1.0"
       val slickVersion = "3.1.1"
       val hikariCPVersion = "2.4.6"
+      val mysqlVersion = "5.1.39"
       Seq(
         "com.typesafe.slick" %% "slick" % slickVersion,
         "com.typesafe.slick" %% "slick-hikaricp" % slickVersion,
+        "mysql" % "mysql-connector-java" % mysqlVersion,
         "com.typesafe.akka" %% "akka-actor" % akkaVersion,
         "com.typesafe.akka" %% "akka-slf4j" % akkaVersion,
         "com.typesafe.akka" %% "akka-agent" % akkaVersion,
