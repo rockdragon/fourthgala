@@ -15,13 +15,17 @@ object mysqlBridge extends App {
   try {
     val links = TableQuery[Links]
 
-    Await.ready(db.run(links.result).map(_.foreach { row =>
+    val query = for {
+      c <- links if c.id === 1671361L
+    } yield c
+
+    Await.ready(db.stream(query.result).foreach { row =>
       println("~~~~~~~~~", row)
-    }), 5 seconds)
+    }, 5 seconds)
 
   } catch {
     case e => println(e)
   } finally db.close
 
-  Thread.sleep(10000)
+  Thread.sleep(2000)
 }
