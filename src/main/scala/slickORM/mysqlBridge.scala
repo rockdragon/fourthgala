@@ -14,10 +14,10 @@ object mysqlBridge extends App {
 
   try {
     val links = TableQuery[Links]
-    val q = links.filter(_.id == 1671423).map(_.pageTitle)
+    val q = links.map(_.id == 1671423)
 
     Await.result(db.run(q.result).map { result =>
-        println(result.mkString(","))
+        println("≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈", result.mkString(","))
       }, 5 seconds
     )
 
@@ -25,5 +25,5 @@ object mysqlBridge extends App {
     case e => println(e)
   } finally db.close
 
-  Thread.sleep(20000)
+  Thread.sleep(10000)
 }

@@ -22,12 +22,13 @@ lazy val root = (project in file("."))
       val slickVersion = "3.1.1"
       val hikariCPVersion = "2.4.6"
       val mysqlVersion = "5.1.39"
+      val slfjVersion = "1.6.4"
       Seq(
         "com.typesafe.slick" %% "slick" % slickVersion,
         "com.typesafe.slick" %% "slick-hikaricp" % slickVersion,
         "mysql" % "mysql-connector-java" % mysqlVersion,
+        "org.slf4j" % "slf4j-nop" % slfjVersion,
         "com.typesafe.akka" %% "akka-actor" % akkaVersion,
-        "com.typesafe.akka" %% "akka-slf4j" % akkaVersion,
         "com.typesafe.akka" %% "akka-agent" % akkaVersion,
         "com.typesafe.akka" %% "akka-testkit" % akkaVersion,
         "com.typesafe.akka" %% "akka-contrib" % akkaVersion,
@@ -49,7 +50,6 @@ lazy val root = (project in file("."))
         "io.spray" %% "spray-routing" % sprayVersion,
         "io.spray" %% "spray-client" % sprayVersion,
         "io.spray" %% "spray-json" % "1.3.2",
-        "ch.qos.logback" % "logback-classic" % "1.1.7",
         "org.scalaz" %% "scalaz-core" % scalazVersion,
         "org.scalaz" %% "scalaz-effect" % scalazVersion,
         "org.scalaz" %% "scalaz-typelevel" % scalazVersion,
