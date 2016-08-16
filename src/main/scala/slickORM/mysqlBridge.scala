@@ -14,12 +14,10 @@ object mysqlBridge extends App {
 
   try {
     val links = TableQuery[Links]
-    val q = links.map(_.id == 1671423)
 
-    Await.result(db.run(q.result).map { result =>
-        println("≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈≈", result.mkString(","))
-      }, 5 seconds
-    )
+    Await.ready(db.run(links.result).map(_.foreach { row =>
+      println("~~~~~~~~~", row)
+    }), 5 seconds)
 
   } catch {
     case e => println(e)
