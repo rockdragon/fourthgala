@@ -8,7 +8,8 @@ lazy val commonSettings = Seq(
 )
 
 lazy val greeting = taskKey[Unit]("An example task")
-lazy val git = taskKey[Unit]("Detemine the current git commit SHA")
+lazy val gitCommitSHA = taskKey[String]("Detemine the current git commit SHA")
+lazy val printGit = taskKey[Unit]("Detemine the current git commit SHA")
 
 lazy val root = (project in file("."))
   .settings(commonSettings: _*)
@@ -18,9 +19,10 @@ lazy val root = (project in file("."))
     }
   )
   .settings(
-    git := {
-      println(Process("git rev-parse HEAD").lines.head)
-    }
+    gitCommitSHA := Process("git rev-parse HEAD").lines.head
+  )
+  .settings(
+    printGit := println(gitCommitSHA.value)
   )
   .settings(
     libraryDependencies ++= {
