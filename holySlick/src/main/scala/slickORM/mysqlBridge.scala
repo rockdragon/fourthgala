@@ -24,6 +24,6 @@ object mysqlBridge extends App {
     }, 5 seconds)
 
   } catch {
-    case e => println(e)
+    case e: Throwable => println(e)
   } finally db.close
 }

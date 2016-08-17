@@ -28,7 +28,7 @@ object Transaction extends App {
     try {
       ok = transfer(from, to, 50, toThrow)
     } catch {
-      case _ =>
+      case _: Throwable =>
     } finally {
       val f = Await.result(from.future, 1 seconds)
       val t = Await.result(to.future, 1 seconds)
