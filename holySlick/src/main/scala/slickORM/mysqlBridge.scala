@@ -12,15 +12,32 @@ object mysqlBridge extends App {
 
   try {
     val articles = TableQuery[Articles]
+    val channels = TableQuery[Channels]
+    val tags = TableQuery[Tags]
 
-    val query = for {
-      c <- articles if c.id === 49
-    } yield c
+    val monadicJoin = for {
+      a <- articles
+      c <- channels
+      bt <- tags
+      ct <- tags
+      if a.id === c.article && c.brand === bt.id && c.channel === ct.id && a.id === 48
+    } yield (a.title, bt.tagX, ct.tagX)
 
-    val rows = Await.result(db.run(query.result), 5 seconds)
+    val rows = Await.result(db.run(monadicJoin.result), 5 seconds)
     rows foreach { row =>
       println(row)
     }
+
+//    val articles = TableQuery[Articles]
+//
+//    val query = for {
+//      c <- articles if c.id === 49
+//    } yield c
+//
+//    val rows = Await.result(db.run(query.result), 5 seconds)
+//    rows foreach { row =>
+//      println(row)
+//    }
 
   } catch {
     case e: Throwable => println(e)
