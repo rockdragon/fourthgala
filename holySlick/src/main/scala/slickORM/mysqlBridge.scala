@@ -13,10 +13,10 @@ object mysqlBridge extends App {
   val db = Database.forConfig("MySQL")
 
   try {
-    val links = TableQuery[Links]
+    val articles = TableQuery[Articles]
 
     val query = for {
-      c <- links if c.id === 1671361L
+      c <- articles if c.id === 49
     } yield c
 
     val rows = Await.result(db.run(query.result), 5 seconds)
