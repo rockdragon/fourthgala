@@ -27,18 +27,6 @@ object mysqlBridge extends App {
     rows foreach { row =>
       println(row)
     }
-
-//    val articles = TableQuery[Articles]
-//
-//    val query = for {
-//      c <- articles if c.id === 49
-//    } yield c
-//
-//    val rows = Await.result(db.run(query.result), 5 seconds)
-//    rows foreach { row =>
-//      println(row)
-//    }
-
   } catch {
     case e: Throwable => println(e)
   } finally db.close
