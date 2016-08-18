@@ -6,8 +6,6 @@ import scala.concurrent.Await
 import scala.concurrent.duration._
 import slick.driver.MySQLDriver.api._
 
-import scala.concurrent.ExecutionContext.Implicits.global
-
 object mysqlBridge extends App {
   ConfigFactory.invalidateCaches()
   val db = Database.forConfig("MySQL")
