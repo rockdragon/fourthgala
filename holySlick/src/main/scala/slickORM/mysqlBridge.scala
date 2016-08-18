@@ -19,9 +19,10 @@ object mysqlBridge extends App {
       c <- links if c.id === 1671361L
     } yield c
 
-    Await.ready(db.stream(query.result).foreach { row =>
-      println("~~~~~~~~~", row)
-    }, 5 seconds)
+    val rows = Await.result(db.run(query.result), 5 seconds)
+    rows foreach { row =>
+      println(row)
+    }
 
   } catch {
     case e: Throwable => println(e)
