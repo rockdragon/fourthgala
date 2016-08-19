@@ -23,6 +23,8 @@ object mysqlBridge extends App {
       if a.id === c.article && c.brand === bt.id && c.channel === ct.id && a.id === 48
     } yield (a.title, bt.tagX, ct.tagX)
 
+    println(monadicJoin.result.statements.headOption)
+
     val rows = Await.result(db.run(monadicJoin.result), 5 seconds)
     rows foreach { row =>
       println(row)
