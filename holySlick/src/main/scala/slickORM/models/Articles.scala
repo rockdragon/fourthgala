@@ -1,9 +1,10 @@
-package slickORM
+package slickORM.models
 
 import java.sql.Date
-import slick.driver.MySQLDriver.api._
-import slick.lifted.{ProvenShape}
+
 import slick.ast.ColumnOption.PrimaryKey
+import slick.driver.MySQLDriver.api._
+import tables._
 
 class Articles(tag: Tag) extends Table[(Int, String, Int, Int, String, Int, Date, Date)](tag, "t_shorturl_article") {
   def id = column[Int]("id", PrimaryKey)
@@ -15,6 +16,6 @@ class Articles(tag: Tag) extends Table[(Int, String, Int, Int, String, Int, Date
   def updatedTime = column[Date]("utime")
   def creationDate = column[Date]("ctime")
 
-  def * :ProvenShape[(Int, String, Int, Int, String, Int, Date, Date)] =
+  def * =
     (id, title, adminId, topicId, url, status, updatedTime, creationDate)
 }

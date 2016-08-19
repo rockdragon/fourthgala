@@ -1,27 +1,22 @@
 package slickORM
 
 import com.typesafe.config.ConfigFactory
+import slick.driver.MySQLDriver.api._
+import slickORM.models.tables._
 
 import scala.concurrent.Await
 import scala.concurrent.duration._
-import slick.driver.MySQLDriver.api._
 
-object mysqlBridge extends App {
+object joinQuery extends App {
   ConfigFactory.invalidateCaches()
   val db = Database.forConfig("MySQL")
 
   try {
-    val articles = TableQuery[Articles]
-    val channels = TableQuery[Channels]
-    val tags = TableQuery[Tags]
 
     val monadicJoin = for {
-      a <- articles
-      c <- channels
-      bt <- tags
-      ct <- tags
-      if a.id === c.article && c.brand === bt.id && c.channel === ct.id && a.id === 48
-    } yield (a.title, bt.tagX, ct.tagX)
+      (a, c) <- articles join channels on (_.id === _.article)
+      if c.id === 58
+    } yield (c.id, a.id, a.title, c.article, c.brand)
 
     println(monadicJoin.result.statements.headOption)
 

@@ -1,9 +1,11 @@
-package slickORM
+package slickORM.models
 
 import java.sql.Date
+
+import slick.ast.ColumnOption.PrimaryKey
 import slick.driver.MySQLDriver.api._
 import slick.lifted._
-import slick.ast.ColumnOption.PrimaryKey
+import tables._
 
 class Channels(tag: Tag) extends Table[(Int, Int, Int, Int, String, Int, Date, Date)](tag, "t_shorturl_channel") {
   def id = column[Int]("id", PrimaryKey)
@@ -15,6 +17,8 @@ class Channels(tag: Tag) extends Table[(Int, Int, Int, Int, String, Int, Date, D
   def creationDate = column[Date]("ctime")
   def updatedTime = column[Date]("utime")
 
-  def * :ProvenShape[(Int, Int, Int, Int, String, Int, Date, Date)] =
+  def * =
     (id, article, channel, brand, url, status, creationDate, updatedTime)
+
+  def articleFK = foreignKey("article_fk", article, articles)(_.id)
 }
