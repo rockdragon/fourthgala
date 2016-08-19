@@ -4,7 +4,6 @@ import java.sql.Date
 
 import slick.ast.ColumnOption.PrimaryKey
 import slick.driver.MySQLDriver.api._
-import tables._
 
 class Articles(tag: Tag) extends Table[(Int, String, Int, Int, String, Int, Date, Date)](tag, "t_shorturl_article") {
   def id = column[Int]("id", PrimaryKey)
