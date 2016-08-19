@@ -14,9 +14,10 @@ object joinQuery extends App {
   try {
 
     val monadicJoin = for {
-      (a, c) <- articles join channels on (_.id === _.article)
-      if c.id === 58
-    } yield (c.id, a.id, a.title, c.article, c.brand)
+      ((a, c), b) <- articles joinLeft channels on (_.id === _.article) joinLeft
+        tags on (_._2.map(_.brand) === _.id)
+
+    } yield (c.map(_.id).getOrElse(0), a.title, b.map(_.tagX).getOrElse(""))
 
     println(monadicJoin.result.statements.headOption)
 

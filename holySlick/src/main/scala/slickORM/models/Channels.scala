@@ -20,5 +20,4 @@ class Channels(tag: Tag) extends Table[(Int, Int, Int, Int, String, Int, Date, D
   def * =
     (id, article, channel, brand, url, status, creationDate, updatedTime)
 
-  def articleFK = foreignKey("article_fk", article, articles)(_.id)
 }
