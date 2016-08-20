@@ -23,7 +23,12 @@ def commonProject(name: String): Project = {
       fork in run := true
     )
     .settings(
-      source := s"${sourceDirectory.value}"
+      source := {
+        val path = s"${sourceDirectory.value}"
+        val log = streams.value.log
+        log.info(path)
+        path
+      }
     )
 }
 
@@ -31,10 +36,16 @@ lazy val holyAkka = commonProject("holyAkka")
   .settings(
     libraryDependencies ++= akkaDependencies
   )
+  .settings(
+    version := "0.1.0"
+  )
 
 lazy val holySlick = commonProject("holySlick")
   .settings(
     libraryDependencies ++= slickDependencies
+  )
+  .settings(
+    version := "0.2.0"
   )
 
 
