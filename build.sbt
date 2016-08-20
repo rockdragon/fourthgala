@@ -2,14 +2,13 @@ import sbt.Keys._
 import Dependencies._
 
 val moye = taskKey[Unit]("create the dependent-jars directory")
+moye := {
+  url("http://www.moye.me/") #> file("./moye.me.html") !
+}
+val source = taskKey[String]("source folder path")
 
 def commonProject(name: String): Project = {
   Project(name, file(name))
-    .settings(
-      moye := {
-        url("http://www.moye.me/") #> file("./moye.me.html") !
-      }
-    )
     .settings(Seq(
       scalaVersion := "2.11.8",
       autoCompilerPlugins := true
@@ -22,6 +21,9 @@ def commonProject(name: String): Project = {
     )
     .settings(
       fork in run := true
+    )
+    .settings(
+      source := s"${sourceDirectory.value}"
     )
 }
 
