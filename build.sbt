@@ -1,4 +1,3 @@
-import sbt.Keys._
 import Dependencies._
 import sbt.complete.{Parser, DefaultParsers}
 import DefaultParsers._
@@ -6,6 +5,12 @@ import DefaultParsers._
 val moye = taskKey[Unit]("create the dependent-jars directory")
 moye := {
   url("http://www.moye.me/") #> file("./moye.me.html") !
+}
+val printMoye = taskKey[Unit]("print moye.me content")
+printMoye := {
+  val ignored = moye.value
+  val content = sbt.IO.read(file("./moye.me.html"))
+  println(content)
 }
 val source = taskKey[String]("source folder path")
 val query = inputKey[Unit]("Runs a query")
