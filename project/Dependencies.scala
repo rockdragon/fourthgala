@@ -43,7 +43,7 @@ object Dependencies {
   val hikariCPVersion = "2.4.6"
   val mysqlVersion = "5.1.39"
   val slfjVersion = "1.6.4"
-  val doobieVersion = "0.3.0"
+  val quillVersion = "0.8.0"
 
   val dbDependencies = Seq(
     "com.typesafe.slick" %% "slick" % slickVersion,
@@ -51,6 +51,6 @@ object Dependencies {
     "mysql" % "mysql-connector-java" % mysqlVersion,
     "org.slf4j" % "slf4j-nop" % slfjVersion,
     "org.scala-lang.plugins" %% "scala-continuations-library" % scalaPluginVersion,
-    "org.tpolecat" %% "doobie-core" % doobieVersion
+    "io.getquill" %% "quill-jdbc" % quillVersion
   )
 }

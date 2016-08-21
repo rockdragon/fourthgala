@@ -1,3 +1,4 @@
+
 package cps
 
 import scala.util.continuations._
@@ -13,15 +14,15 @@ object PriintFiles extends App {
       val f = files(i)
       i += 1
 
-      if(f.isDirectory)
+      if(f.isDirectory) {
         processDirectory(f)
-      else {
+      } else {
         shift {
           k: (Unit => Unit) => {
             cont = k
           }
         }
-        println(f)
+        println(f) // scalastyle:ignore
       }
     }
   }

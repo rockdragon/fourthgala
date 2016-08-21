@@ -2,16 +2,21 @@ import Dependencies._
 import sbt.complete.{Parser, DefaultParsers}
 import DefaultParsers._
 
-val moye = taskKey[Unit]("create the dependent-jars directory")
-moye := {
+val crawlMoye = taskKey[Unit]("create the dependent-jars directory")
+crawlMoye := {
+  Process("rm -rf ./moye.me.html")
   url("http://www.moye.me/") #> file("./moye.me.html") !
 }
 val printMoye = taskKey[Unit]("print moye.me content")
 printMoye := {
-  val ignored = moye.value
   val content = sbt.IO.read(file("./moye.me.html"))
-  println(content)
+  println(content) // scalastyle:ignore
 }
+val moyeCommand = Command.command("moye") {
+  state => "crawlMoye" :: "printMoye" :: state
+}
+commands += moyeCommand
+
 val source = taskKey[String]("source folder path")
 val query = inputKey[Unit]("Runs a query")
 val queryParser: Parser[String] = {
@@ -65,9 +70,6 @@ lazy val holyDB = commonProject("holyDB")
   .settings(
     version := "0.2.0"
   )
-
-
-
 
 
 
