@@ -1,3 +1,4 @@
+
 package slickORM
 
 import com.typesafe.config.ConfigFactory

@@ -1,3 +1,4 @@
+
 package slickORM
 
 import com.typesafe.config.ConfigFactory
@@ -15,18 +16,18 @@ object joinQuery extends App {
 
     val monadicJoin = for {
       ((c, a), b) <- channels joinLeft
-         articles on (_.article === _.id) joinLeft
+        articles on (_.article === _.id) joinLeft
         tags on (_._1.brand === _.id)
 
     } yield (c.id, a.map(_.title).getOrElse(""), b.map(_.tagX).getOrElse(""))
 
-    println(monadicJoin.result.statements.headOption)
+    println(monadicJoin.result.statements.headOption) // scalastyle:ignore
 
     val rows = Await.result(db.run(monadicJoin.result), 5 seconds)
     rows foreach { row =>
-      println(row)
+      println(row)  // scalastyle:ignore
     }
   } catch {
-    case e: Throwable => println(e)
+    case e: Throwable => println(e) // scalastyle:ignore
   } finally db.close
 }

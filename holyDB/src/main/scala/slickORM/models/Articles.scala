@@ -1,3 +1,4 @@
+
 package slickORM.models
 
 import java.sql.Date
