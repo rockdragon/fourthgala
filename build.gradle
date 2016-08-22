@@ -1,3 +1,5 @@
+apply plugin: 'scala'
+
 task helloworld << {
     println 'hello, world'
 }
