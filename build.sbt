@@ -71,6 +71,13 @@ lazy val holyDB = commonProject("holyDB")
     version := "0.2.0"
   )
 
+lazy val holyProgramming = commonProject("holyProgramming")
+  .settings(
+    libraryDependencies ++= akkaDependencies
+  )
+  .settings(
+    version := "0.1.0"
+  )
 
 
 
