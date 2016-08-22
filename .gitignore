@@ -27,3 +27,7 @@ project/plugins/project/
 .scala_dependencies
 .worksheet
 moye.me.html
+
+# gradle specific
+.gradle/
+gradle-app.setting
