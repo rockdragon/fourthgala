@@ -29,5 +29,5 @@ project/plugins/project/
 moye.me.html
 
 # gradle specific
-.gradle/
+.gradle/gr
 gradle-app.setting
