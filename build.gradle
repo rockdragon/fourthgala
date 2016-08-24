@@ -3,3 +3,9 @@ apply plugin: 'scala'
 task helloworld << {
     println 'hello, world'
 }
+helloworld << {
+    println "hi, idiot"
+}
+helloworld {
+    println "holy, closure."
+}
