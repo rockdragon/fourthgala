@@ -5,8 +5,7 @@
 2. holyDB
 	- slick
 	- quill
-
-- holyProgramming
+3. holyProgramming
 	- statistics
 	- algorithms
 	- FPinScala
