@@ -19,12 +19,9 @@ object Variance extends App {
   }
 
   def ungroupedVariance(): Unit = {
-    val seqs = List[Int](145, 155, 165, 175, 185, 195, 205, 215, 225, 235)
-    val n = seqs.length
-    val x_ = seqs.sum / n
+    val seq = Seq[Double](145, 155, 165, 175, 185, 195, 205, 215, 225, 235)
 
-    val variance = seqs.foldRight(0.0)((c, acc) =>
-      pow(c - x_, 2) + acc) / (n - 1)
+    val variance = Lib.variance(seq)
     println(variance)
     println(sqrt(variance))
   }
