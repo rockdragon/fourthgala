@@ -1,13 +1,11 @@
 apply plugin: 'scala'
 
-task setupDatabaseTests << {
+task createSchema << {
+    println 'create database schema'
+}
+task loadTestData(dependsOn: createSchema) << {
     println 'load test data'
 }
-setupDatabaseTests {
-    doLast {
-        println 'create database schema'
-    }
-    doFirst {
-        println 'drop database schema'
-    }
+loadTestData.onlyIf {
+    System.properties['load.data'] == 'true'
 }
