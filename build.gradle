@@ -1,11 +1,13 @@
 apply plugin: 'scala'
 
-task helloworld << {
-    println 'hello, world'
+task setupDatabaseTests << {
+    println 'load test data'
 }
-helloworld << {
-    println "hi, idiot"
-}
-helloworld {
-    println "holy, closure."
+setupDatabaseTests {
+    doLast {
+        println 'create database schema'
+    }
+    doFirst {
+        println 'drop database schema'
+    }
 }
