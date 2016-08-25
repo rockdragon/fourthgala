@@ -10,7 +10,6 @@ loadTestData.onlyIf {
     System.properties['load.data'] == 'true'
 }
 
-task hello << {
+task hello(dependsOn: loadTestData) << {
     println 'hello'
 }
-hello.dependsOn(loadTestData)
