@@ -1,40 +1,38 @@
 apply plugin: 'scala'
 
-task createSchema << {
-    println 'create database schema'
-}
-
-task loadTestData(dependsOn: createSchema) {
-    println 'loadTestData'
-}
-loadTestData.onlyIf {
-    System.properties['load.data'] == 'true'
-}
-loadTestData.ext.nickName = "old.wang"
-
-task hello(dependsOn: loadTestData) << {
-    println "hello, this task's path is ${loadTestData.nickName}"
-}
-
-task logLevel << {
-    def levels = ['DEBUG',
-                  'INFO',
-                  'LIFECYCLE',
-                  'QUIET',
-                  'WARN',
-                  'ERROR']
-    levels.each { level ->
-        logging.level = level
-        def logMessage = "SETTING LogLevel=${level}"
-        logger.error logMessage
-        logger.error '-' * logMessage.size()
-        logger.debug 'DEBUG ENABLED'
-        logger.info 'INFO ENABLED'
-        logger.lifecycle 'LIFECYCLE ENABLED'
-        logger.warn 'WARN ENABLED'
-        logger.quiet 'QUIET ENABLED'
-        logger.error 'ERROR ENABLED'
-        println 'THIS IS println OUTPUT'
-        logger.error ' '
+sourceSets {
+    main {
+        scala {
+            srcDirs = ['src/scala']
+        }
     }
+    test {
+        scala {
+            srcDirs = ['test/scala']
+        }
+    }
+}
+
+repositories {
+    mavenCentral()
+}
+
+configurations.all {
+    resolutionStrategy.force "org.scala-lang:scala-library:2.11.8"
+    resolutionStrategy.cacheChangingModulesFor 0, 'seconds'
+}
+
+dependencies {
+    zinc 'com.typesafe.zinc:zinc:0.3.9'
+    compile 'com.typesafe.akka:akka-actor_2.11:2.4.9'
+}
+
+test {
+    maxParallelForks = 5
+    forkEvery = 50
+}
+
+task getDeps(type: Copy) {
+    from configurations.runtime
+    into 'runtime/'
 }

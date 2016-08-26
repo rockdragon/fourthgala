@@ -9,6 +9,7 @@
 .lib/
 .idea/
 .sbtserver/
+build/
 
 dist/*
 target/
