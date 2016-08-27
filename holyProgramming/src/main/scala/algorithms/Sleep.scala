@@ -1,11 +1,11 @@
-package async
+package algorithms
 
 import scala.concurrent.Future
-import scala.concurrent.ExecutionContext.Implicits.global
-import scala.util.{Failure, Success}
-import scala.util.Random
+import scala.util.{Failure, Random, Success}
 
 object Sleep extends App {
+  import scala.concurrent.ExecutionContext.Implicits.global
+
   def sleep(duration: Long) {
     Thread.sleep(duration)
   }

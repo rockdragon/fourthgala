@@ -1,4 +1,5 @@
-package algorithms
+
+package structure.buffers
 
 import org.scalatest._
 

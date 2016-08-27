@@ -1,6 +1,6 @@
 # fourthgala
 
-## structure
+## structure.structure
 1. holyAkka
 2. holyDB
 	- slick

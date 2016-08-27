@@ -1,10 +1,10 @@
-package async
+package algorithms
 
-import scala.concurrent.{Await, Future, Promise}
-import scala.util.{Failure, Success}
-import scala.concurrent.ExecutionContext.Implicits.global
+import scala.concurrent.{Future, Promise}
 
 object AsyncPromises extends App {
+  import scala.concurrent.ExecutionContext.Implicits.global
+
   def sleep(duration: Long) {
     Thread.sleep(duration)
   }
@@ -39,4 +39,3 @@ object AsyncPromises extends App {
   }
 
 }
-

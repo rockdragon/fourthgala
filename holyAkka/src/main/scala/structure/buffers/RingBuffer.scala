@@ -1,4 +1,5 @@
-package algorithms
+
+package structure.buffers
 
 class RingBuffer[T: Manifest](capacity: Int) {
   private var _head = 0
