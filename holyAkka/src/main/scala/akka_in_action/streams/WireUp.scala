@@ -9,7 +9,11 @@ object WireUp extends App {
   implicit val system = ActorSystem("actor-system")
   implicit val materializer = ActorMaterializer()
 
-  Source('a' to 'g').via(Flow[Char].map(c => (c + 1).asInstanceOf[Char] )).to(Sink.foreach(println(_))).run()
+  Source(0 to 25)
+    .via(Flow[Int].map(i => (i + 'A').asInstanceOf[Char]))
+    .to(Sink.foreach(println(_))).run()
+
+  system.terminate()
 
 //  println(materializer.settings)
 }
