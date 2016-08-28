@@ -10,4 +10,6 @@ object WireUp extends App {
   implicit val materializer = ActorMaterializer()
 
   Source('a' to 'g').via(Flow[Char].map(c => (c + 1).asInstanceOf[Char] )).to(Sink.foreach(println(_))).run()
+
+//  println(materializer.settings)
 }

@@ -5,6 +5,9 @@ import akka.actor.ActorSystem
 import akka.stream.ActorMaterializer
 import akka.stream.scaladsl.{Sink, Source}
 
+import scala.concurrent.Await
+import scala.concurrent.duration._
+
 object SourceIsImmutable extends App {
   implicit val system = ActorSystem("actor-system")
 
@@ -21,10 +24,13 @@ object SourceIsImmutable extends App {
   // returns new Source[Int], with `map()` appended
   val runnable2 = zeroes.runWith(Sink.fold(0)(_ + _)) // 0
 
-  Lib.consume(runnable1).andThen {
-    case _ => Lib.consume(runnable2).andThen {
-      case _ => system.terminate()
-    }
-  }
+  val results = for {
+    res1 <- runnable1
+    res2 <- runnable2
+  } yield (res1, res2)
+
+  val pair = Await.result(results, 500 millis)
+  println(pair)
+  system terminate()
 }
 
