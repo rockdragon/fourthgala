@@ -20,13 +20,9 @@ object Materialization extends App {
 
   val sum: Future[Int] = runnable.run()
 
+  Lib.consume(sum)
 
-  sum onComplete {
-    case Success(x) => println(x)
-    case Failure(e) => println(e)
-  }
-
-  sum andThen{
+  sum andThen {
     case _ => system terminate()
   }
 }
