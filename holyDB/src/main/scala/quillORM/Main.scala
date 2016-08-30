@@ -10,6 +10,7 @@ object Main extends App {
   val ctx = new JdbcContext[MySQLDialect, SnakeCase]("MySQL")
   import ctx._
 
+
   val q = quote {
     query[t_shorturl_article].filter(p => p.id == 51)
   }
