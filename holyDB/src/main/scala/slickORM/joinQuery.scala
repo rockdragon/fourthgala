@@ -23,7 +23,7 @@ object joinQuery extends App {
 
     println(monadicJoin.result.statements.headOption) // scalastyle:ignore
 
-    val rows = Await.result(db.run(monadicJoin.result), 5 seconds)
+    val rows = Await.result(db.run(monadicJoin.result), 30 seconds)
     rows foreach { row =>
       println(row)  // scalastyle:ignore
     }

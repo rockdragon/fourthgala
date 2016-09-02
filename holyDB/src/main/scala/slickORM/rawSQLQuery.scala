@@ -27,7 +27,7 @@ object rawSQLQuery extends App {
                               on c.brand_id = g2.id
                           where c.id = 58""".as[AssembledObject]
 
-    val rows = Await.result(db.run(rawSQL), 15 seconds)
+    val rows = Await.result(db.run(rawSQL), 30 seconds)
     rows foreach { row =>
       println(row)
     }
