@@ -9,6 +9,7 @@ import akka.NotUsed
 import akka.stream.scaladsl.Tcp.OutgoingConnection
 import akka.stream.stage.{GraphStage, GraphStageLogic, InHandler, OutHandler}
 import akka.util.ByteString
+import akka_in_action.streams.SourceShape_.NumbersSource
 
 import scala.concurrent.{Await, Future}
 import scala.concurrent.duration._
@@ -29,16 +30,19 @@ object SinkShape_ extends App {
         setHandler(in, new InHandler {
           @throws[Exception](classOf[Exception])
           override def onPush(): Unit = {
-            println(grab(in))
+            println(s"grab: ${grab(in)}")
             pull(in)
           }
         })
       }
   }
 
+  val sourceGraph: Graph[SourceShape[Int], NotUsed] = new NumbersSource
+  val mySource: Source[Int, NotUsed] = Source.fromGraph(sourceGraph)
+
   val sinkGraph: Graph[SinkShape[Int], NotUsed] = new StdoutSink
   val mySink: Sink[Int, NotUsed] = Sink.fromGraph(sinkGraph)
-  val result = Source.fromIterator(() => Iterator from 1).take(10).to(mySink)
+  val result = mySource.take(66).to(mySink)
   result.run()
 
   system.terminate()

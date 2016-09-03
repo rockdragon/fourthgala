@@ -31,6 +31,7 @@ object SourceShape_ extends App {
           @throws[Exception](classOf[Exception])
           override def onPull(): Unit = {
             push(out, counter)
+            println(s"push $counter")
             counter += 1
           }
         })
