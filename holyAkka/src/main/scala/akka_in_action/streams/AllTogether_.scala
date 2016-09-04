@@ -3,14 +3,9 @@ package akka_in_action.streams
 
 import akka.actor.ActorSystem
 import akka.stream._
-import akka.stream.scaladsl.{Balance, Broadcast, Flow, GraphDSL, Keep, Merge, RunnableGraph, Sink, Source, Tcp}
-import GraphDSL.Implicits._
-import akka.NotUsed
-import akka.stream.scaladsl.Tcp.OutgoingConnection
-import akka.stream.stage.{GraphStage, GraphStageLogic, InHandler, OutHandler}
-import akka.util.ByteString
+import akka.stream.scaladsl.{Sink, Source}
 
-import scala.concurrent.{Await, Future}
+import scala.concurrent.Await
 import scala.concurrent.duration._
 
 object AllTogether_ extends App {
