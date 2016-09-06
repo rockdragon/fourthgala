@@ -16,22 +16,26 @@ object RunnableGraph_ extends App {
   implicit val ec = system.dispatcher
   implicit val materializer = ActorMaterializer()
 
-  val r = RunnableGraph.fromGraph(GraphDSL.create() { implicit builder =>
+  import GraphDSL.Implicits._
+  val partial = GraphDSL.create() { implicit builder =>
     val B = builder.add(Broadcast[Int](2))
     val C = builder.add(Merge[Int](2))
     val E = builder.add(Balance[Int](2))
     val F = builder.add(Merge[Int](2))
 
-    Source.single(0) ~> B.in; B.out(0) ~> C.in(1); C.out ~> F.in(0)
-    C.in(0) <~ F.out
+    C  <~  F
+    B  ~>                            C  ~>  F
+    B  ~>  Flow[Int].map(_ + 1)  ~>  E  ~>  F
+    FlowShape(B.in, E.out(1))
+  }.named("partial")
 
-    B.out(1).map(_ + 1) ~> E.in; E.out(0) ~> F.in(1)
-    E.out(1) ~> Sink.foreach(println)
+  val result = Source.repeat(101)
+    .via(Flow.fromGraph(partial))
+    .toMat(Sink.head)(Keep.right)
+    .run()
 
-    ClosedShape
-  })
-
-  val f = r.run()
+  val r = Await.result(result, 300 millis)
+  println(r)
 
   system.terminate()
 }
