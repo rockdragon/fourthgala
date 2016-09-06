@@ -11,7 +11,7 @@ import scala.concurrent.{Promise, Future, Await}
 import scala.concurrent.duration._
 import GraphDSL.Implicits._
 
-object ModularComposition_ extends App {
+object ModularGraph_ extends App {
   implicit val system = ActorSystem()
   implicit val ec = system.dispatcher
   implicit val materializer = ActorMaterializer()
