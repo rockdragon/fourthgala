@@ -39,4 +39,6 @@ object MergeGraph extends App {
   val max: Future[Int] = g.run()
   val r = Await.result(max, 300 millis)
   println(r)
+
+  system.terminate()
 }
