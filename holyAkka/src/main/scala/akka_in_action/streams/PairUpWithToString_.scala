@@ -8,7 +8,7 @@ import akka.stream.scaladsl._
 import scala.concurrent.Await
 import scala.concurrent.duration._
 
-object FlowShape_ extends App {
+object PairUpWithToString_ extends App {
   implicit val system = ActorSystem()
   implicit val materializer = ActorMaterializer()
 
