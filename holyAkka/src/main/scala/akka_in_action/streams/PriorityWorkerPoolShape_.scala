@@ -68,6 +68,7 @@ object PriorityWorkerPoolShape_ extends App {
   val worker2 = Flow[String].map("step 2 " + _)
 
   RunnableGraph.fromGraph(GraphDSL.create() { implicit b =>
+    // scalastyle:off
     val priorityPool1 = b.add(PriorityWorkerPool(worker1, 4))
     val priorityPool2 = b.add(PriorityWorkerPool(worker2, 2))
 
@@ -79,6 +80,7 @@ object PriorityWorkerPoolShape_ extends App {
 
     priorityPool2.resultsOut ~> Sink.foreach(println)
     ClosedShape
+    // scalastyle:on
   }).run()
 
   Thread.sleep(200)
