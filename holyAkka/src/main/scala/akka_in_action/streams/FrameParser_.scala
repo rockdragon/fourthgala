@@ -69,8 +69,8 @@ object FrameParser_ extends App {
                 stash = stash.drop(4)
                 run()
               }
-            } else if(stash.length < needed) {
-              if(isClosed(in)) completeStage()
+            } else if (stash.length < needed) {
+              if (isClosed(in)) completeStage()
               else pull(in)
             } else {
               val emit = stash.take(needed)
@@ -88,7 +88,9 @@ object FrameParser_ extends App {
   })
 
   trait Message
+
   case class Ping(id: Int) extends Message
+
   case class Pong(id: Int) extends Message
 
   def toBytes(msg: Message): ByteString = {
@@ -103,8 +105,8 @@ object FrameParser_ extends App {
     implicit val order = ByteOrder.LITTLE_ENDIAN
     val it = bytes.iterator
     it.getByte match {
-      case 1     => Ping(it.getInt)
-      case 2     => Pong(it.getInt)
+      case 1 => Ping(it.getInt)
+      case 2 => Pong(it.getInt)
       case other => throw new RuntimeException(s"parse error: expected 1|2 got $other")
     }
   }
