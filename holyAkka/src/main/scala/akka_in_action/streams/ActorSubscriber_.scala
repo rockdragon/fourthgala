@@ -8,9 +8,6 @@ import akka.stream.actor.{ActorSubscriber, MaxInFlightRequestStrategy}
 import akka.stream.actor.ActorSubscriberMessage._
 import akka.stream.scaladsl.{Sink, Source}
 
-import scala.concurrent.Await
-import scala.concurrent.duration._
-
 object ActorSubscriber_ extends App {
   implicit val system = ActorSystem()
   implicit val ec = system.dispatcher
