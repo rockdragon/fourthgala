@@ -6,7 +6,7 @@ import akka.routing.{ActorRefRoutee, RoundRobinRoutingLogic, Router}
 import akka.stream.ActorMaterializer
 import akka.stream.actor.{ActorPublisher, ActorSubscriber, MaxInFlightRequestStrategy}
 import akka.stream.actor.ActorSubscriberMessage._
-import akka.stream.scaladsl.{Sink, Source}
+import akka.stream.scaladsl.{Flow, Sink, Source}
 import akka.stream.actor.ActorPublisherMessage._
 
 import scala.annotation.tailrec
@@ -63,6 +63,19 @@ object ActorPublisher_ extends App {
         }
       }
   }
+
+  val jobManagerSource = Source.actorPublisher[JobManager.Job](JobManager.props)
+  val ref = Flow[JobManager.Job]
+    .map(_.payload.toUpperCase)
+    .map { elem => println(elem); elem }
+    .to(Sink.ignore)
+    .runWith(jobManagerSource)
+
+  ref ! JobManager.Job("a")
+  ref ! JobManager.Job("b")
+  ref ! JobManager.Job("c")
+
+  Thread.sleep(200)
 
   system.terminate()
 }
