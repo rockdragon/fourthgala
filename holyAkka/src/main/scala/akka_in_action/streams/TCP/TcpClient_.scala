@@ -1,12 +1,13 @@
 
-package akka_in_action.streams
+package akka_in_action.streams.TCP
 
-import akka.actor.{ Actor, ActorRef, Props }
-import akka.io.{ IO, Tcp }
-import akka.util.ByteString
 import java.net.InetSocketAddress
 
-object TcpConnection_ extends App {
+import akka.actor.{Actor, ActorRef, Props}
+import akka.io.{IO, Tcp}
+import akka.util.ByteString
+
+object TcpClient_ extends App {
 
   object Client {
     def props(remote: InetSocketAddress, replies: ActorRef) =
