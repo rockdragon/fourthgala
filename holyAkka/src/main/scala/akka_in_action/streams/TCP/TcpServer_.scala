@@ -2,25 +2,28 @@
 package akka_in_action.streams.TCP
 
 import java.net.InetSocketAddress
-import akka.actor.{Actor, ActorRef, Props}
+
+import akka.actor.{Actor, ActorSystem, Props}
 import akka.io.{IO, Tcp}
-import akka.util.ByteString
+import Tcp._
+import akka.stream.ActorMaterializer
 
 object TcpServer_ extends App {
 
   class SimplisticHandler extends Actor {
     import Tcp._
     def receive: Receive = {
-      case Received(data) => sender() ! Write(data)
-      case PeerClosed     => context stop self
+      case Received(data) =>
+        sender() ! Write(data)
+        println(data.utf8String)
+      case PeerClosed     =>
+        context stop self
     }
   }
 
-  class Server extends Actor {
-    import Tcp._
-    import context.system
+  class Server(port: Int) extends Actor {
 
-    IO(Tcp) ! Bind(self, new InetSocketAddress("localhost", 0))
+    IO(Tcp) ! Bind(self, new InetSocketAddress("localhost", port))
 
     def receive: Receive = {
       case b @ Bound(localAddress) =>
@@ -34,4 +37,10 @@ object TcpServer_ extends App {
         connection ! Register(handler)
     }
   }
+
+  implicit val system = ActorSystem()
+  implicit val ec = system.dispatcher
+  implicit val materializer = ActorMaterializer()
+
+  val server = system.actorOf(Props(classOf[Server], 8000))
 }
