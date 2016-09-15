@@ -11,16 +11,16 @@ import akka.util.ByteString
 
 object TcpClient_ extends App {
 
-  class Client(remote: InetSocketAddress, listener: ActorRef) extends Actor {
+  class Client(remote: InetSocketAddress, proxy: ActorRef) extends Actor {
     IO(Tcp) ! Connect(remote)
 
     def receive: Receive = {
       case CommandFailed(_: Connect) =>
-        listener ! "connect failed"
+        proxy ! "connect failed"
         context stop self
 
       case c @ Connected(remote, local) =>
-        listener ! c
+        proxy ! c
         val connection = sender()
         connection ! Register(self)
         context become {
@@ -28,13 +28,13 @@ object TcpClient_ extends App {
             connection ! Write(data)
           case CommandFailed(w: Write) =>
             // O/S buffer was full
-            listener ! "write failed"
+            proxy ! "write failed"
           case Received(data) =>
-            listener ! data
+            proxy ! data
           case "close" =>
             connection ! Close
           case _: ConnectionClosed =>
-            listener ! "connection closed"
+            proxy ! "connection closed"
             context stop self
         }
     }
@@ -48,19 +48,24 @@ object TcpClient_ extends App {
     sender ! ByteString("hello")
   }
 
-  class Listener extends Actor {
+  class ClientProxy extends Actor {
     def receive: Receive = {
       case c @ Connected(remote, local) =>
         println(s"Connnected -> remote: $remote, local: $local")
         work(sender())
 
-      case f @ "connect failed" =>
+      case b: ByteString => println(b.utf8String)
+
+      case f @ ("connect failed" | "connection closed" | "write failed") =>
         println(f)
-        system.terminate()
     }
   }
 
-  val listener = system.actorOf(Props[Listener])
+  val proxy = system.actorOf(Props[ClientProxy])
+  val proxy1 = system.actorOf(Props[ClientProxy])
   val serverAddress = new InetSocketAddress("localhost", 8000)
-  val client = system.actorOf(Props(classOf[Client], serverAddress, listener))
+
+  val client = system.actorOf(Props(classOf[Client], serverAddress, proxy))
+  Thread.sleep(1000)
+  val client2 = system.actorOf(Props(classOf[Client], serverAddress, proxy1))
 }
