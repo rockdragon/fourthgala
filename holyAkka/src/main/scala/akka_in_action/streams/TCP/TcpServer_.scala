@@ -62,10 +62,6 @@ object TcpServer_ extends App {
 
       case Ack =>
         println("ACK")
-
-      case CommandFailed(Write(_, Ack)) =>
-        println("ACK failed")
-        connection ! ResumeWriting
     }
   }
 
