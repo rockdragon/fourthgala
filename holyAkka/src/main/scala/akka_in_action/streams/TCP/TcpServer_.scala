@@ -9,18 +9,6 @@ import Tcp._
 import akka.stream.ActorMaterializer
 
 object TcpServer_ extends App {
-
-  class SimplisticHandler extends Actor {
-    import Tcp._
-    def receive: Receive = {
-      case Received(data) =>
-        sender() ! Write(data)
-        println(data.utf8String)
-      case PeerClosed     =>
-        context stop self
-    }
-  }
-
   class Server(port: Int) extends Actor {
 
     IO(Tcp) ! Bind(self, new InetSocketAddress("localhost", port))
@@ -32,9 +20,16 @@ object TcpServer_ extends App {
       case CommandFailed(_: Bind) => context stop self
 
       case c @ Connected(remote, local) =>
-        val handler = context.actorOf(Props[SimplisticHandler])
         val connection = sender()
-        connection ! Register(handler)
+        connection ! Register(self)
+        context become {
+          case Received(data) =>
+            sender() ! Write(data)
+            println(data.utf8String)
+          case PeerClosed     =>
+            context stop self
+            system.terminate()
+        }
     }
   }
 
