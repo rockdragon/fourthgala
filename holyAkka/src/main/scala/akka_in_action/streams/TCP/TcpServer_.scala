@@ -28,7 +28,6 @@ object TcpServer_ extends App {
         connection ! Register(handler)
         connections += connection.path.toSerializationFormat -> connection
 
-        println(connections.keys.size)
         if (connections.keys.size > 1)
             for (c <- connections) c._2 ! Write(ByteString(s"hello, ${c._1}"))
     }
