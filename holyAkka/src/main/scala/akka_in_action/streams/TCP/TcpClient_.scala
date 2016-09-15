@@ -11,16 +11,18 @@ import akka.util.ByteString
 
 object TcpClient_ extends App {
 
-  class Client(remote: InetSocketAddress, proxy: ActorRef) extends Actor {
+  class Client(remote: InetSocketAddress) extends Actor {
     IO(Tcp) ! Connect(remote)
+
+    val handler = system.actorOf(Props[ClientHandler])
 
     def receive: Receive = {
       case CommandFailed(_: Connect) =>
-        proxy ! "connect failed"
+        handler ! "connect failed"
         context stop self
 
       case c @ Connected(remote, local) =>
-        proxy ! c
+        handler ! c
         val connection = sender()
         connection ! Register(self)
         context become {
@@ -28,13 +30,13 @@ object TcpClient_ extends App {
             connection ! Write(data)
           case CommandFailed(w: Write) =>
             // O/S buffer was full
-            proxy ! "write failed"
+            handler ! "write failed"
           case Received(data) =>
-            proxy ! data
+            handler ! data
           case "close" =>
             connection ! Close
           case _: ConnectionClosed =>
-            proxy ! "connection closed"
+            handler ! "connection closed"
             context stop self
         }
     }
@@ -48,7 +50,7 @@ object TcpClient_ extends App {
     sender ! ByteString("hello")
   }
 
-  class ClientProxy extends Actor {
+  class ClientHandler extends Actor {
     def receive: Receive = {
       case c @ Connected(remote, local) =>
         println(s"Connnected -> remote: $remote, local: $local")
@@ -61,11 +63,9 @@ object TcpClient_ extends App {
     }
   }
 
-  val proxy = system.actorOf(Props[ClientProxy])
-  val proxy1 = system.actorOf(Props[ClientProxy])
   val serverAddress = new InetSocketAddress("localhost", 8000)
 
-  val client = system.actorOf(Props(classOf[Client], serverAddress, proxy))
+  val client = system.actorOf(Props(classOf[Client], serverAddress))
   Thread.sleep(1000)
-  val client2 = system.actorOf(Props(classOf[Client], serverAddress, proxy1))
+  val client2 = system.actorOf(Props(classOf[Client], serverAddress))
 }

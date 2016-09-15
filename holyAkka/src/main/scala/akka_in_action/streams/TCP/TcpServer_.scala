@@ -11,14 +11,14 @@ import akka.util.ByteString
 
 object TcpServer_ extends App {
 
-  class Server(port: Int) extends Actor {
+  class Server(serverAddress: InetSocketAddress) extends Actor {
     var connections = Map.empty[String, ActorRef]
 
-    IO(Tcp) ! Bind(self, new InetSocketAddress("localhost", port))
+    IO(Tcp) ! Bind(self, serverAddress)
 
     def receive: Receive = {
       case b@Bound(localAddress) =>
-      // do some logging or setup ...
+        println("Server is ready...")
 
       case CommandFailed(_: Bind) => context stop self
 
@@ -49,9 +49,9 @@ object TcpServer_ extends App {
         println(data.utf8String)
       case PeerClosed =>
         context stop self
-        system.terminate()
     }
   }
 
-  val server = system.actorOf(Props(classOf[Server], 8000))
+  val serverAddress = new InetSocketAddress("localhost", 8000)
+  val server = system.actorOf(Props(classOf[Server], serverAddress))
 }
