@@ -1,16 +1,16 @@
 
-package akka_in_action.streams
+package akka_in_action.streams.StreamingIO
 
 import java.nio.file.Paths
 
 import akka.actor.ActorSystem
-import akka.stream.{ActorMaterializer, IOResult}
 import akka.stream.scaladsl._
+import akka.stream.{ActorMaterializer, IOResult}
 
-import scala.concurrent.{Await, Future}
 import scala.concurrent.duration._
+import scala.concurrent.{Await, Future}
 
-object StreamingIO extends App {
+object PrintFile extends App {
   implicit val system = ActorSystem("actor-system")
   implicit val materializer = ActorMaterializer()
 
