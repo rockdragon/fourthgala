@@ -53,20 +53,4 @@ object Dependencies {
     "org.scala-lang.plugins" %% "scala-continuations-library" % scalaPluginVersion,
     "io.getquill" %% "quill-jdbc" % quillVersion
   )
-
-  val playVersion = "1.0.0"
-
-  val playDependencies = Seq(
-    "com.typesafe.sbt" % "sbt-web" % playVersion,
-    "com.typesafe.sbt" % "sbt-webdriver" % playVersion,
-    "com.typesafe.sbt" % "sbt-js-engine" % playVersion,
-
-    "com.typesafe.sbt" % "sbt-coffeescript" % playVersion,
-    "com.typesafe.sbt" % "sbt-digest" % playVersion,
-    "com.typesafe.sbt" % "sbt-gzip" % playVersion,
-    "com.typesafe.sbt" % "sbt-less" % playVersion,
-    "com.typesafe.sbt" % "sbt-jshint" % playVersion,
-    "com.typesafe.sbt" % "sbt-mocha" % playVersion,
-    "com.typesafe.sbt" % "sbt-rjs" % playVersion
-  )
 }
